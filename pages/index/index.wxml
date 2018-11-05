@@ -1,6 +1,41 @@
 <!--index.wxml-->
+<swiper indicator-dots="{{indicatorDots}}"  
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"       circular="true" style="height:100px;">  
+  <block wx:for="{{imgUrls}}">  
+    <swiper-item>  
+      <navigator url="{{item.link}}" hover-class="navigator-hover">  
+      <image src="{{item.url}}" class="slide-image"/>  
+      </navigator>  
+    </swiper-item>  
+  </block>  
+ </swiper>  
 <view class="container">
-  <view class="userinfo">
+  <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb="" class="task-card">
+      <view slot="content" class="task-content">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"/>
+        <view class="task-right">
+          <text class="price">¥3.00</text>
+          <text>求帮帮孩子拿个快递</text>
+        </view>
+      </view>
+      <view slot="footer">          
+        <i-button type="success" bind:click="handleClick" size="small" long="true" shape="circle">接任务</i-button>
+      </view>
+  </i-card>
+  <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb=""
+  class="task-card">
+      <view slot="content" class="task-content">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"/>
+        <view class="task-right">
+          <text class="price">¥3.00</text>
+          <text>求帮帮孩子拿个快递</text>
+        </view>
+      </view>
+      <view slot="footer">          
+        <i-button type="success" bind:click="handleClick" size="small" long="true" shape="circle">接任务</i-button>
+      </view>
+  </i-card>
+  <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -9,9 +44,6 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view>
-  <i-panel title="标题">
-    <view style="padding: 15px;">PANEL 内容区域</view>
-  </i-panel>
-  <i-button type="primary" bind:click="handleClick">iview-button</i-button>
+  </view> -->
+
 </view>

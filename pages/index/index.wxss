@@ -19,3 +19,28 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.slide-image {
+  width: 100%;
+  height: 100px;
+}
+
+.price {
+  color: red;
+}
+
+.task-content {
+  display: flex;
+}
+
+.task-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: auto;
+  text-align: right;
+}
+
+.task-card {
+  margin-top: 10px;
+}

@@ -7,7 +7,23 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    imgUrls: [
+      {
+        link: '/pages/index/index',
+        url: '../../utils/imgs/1.png'
+      }, {
+        link: '/pages/index/index',
+        url: '../../utils/imgs/2.jpeg'
+      }, {
+        link: '/pages/index/index',
+        url: '../../utils/imgs/3.jpg'
+      }
+    ],
+    indicatorDots: true,  //小点
+    autoplay: true,  //是否自动轮播
+    interval: 3000,  //间隔时间
+    duration: 3000,  //滑动时间
   },
   //事件处理函数
   bindViewTap: function() {

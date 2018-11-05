@@ -7,9 +7,11 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#5cb48e",
     "navigationBarTitleText": "校园互助",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "#fff",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "list": [
