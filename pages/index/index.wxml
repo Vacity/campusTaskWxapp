@@ -18,8 +18,8 @@
           <text>求帮帮孩子拿个快递</text>
         </view>
       </view>
-      <view slot="footer">          
-        <i-button type="success" bind:click="handleClick" size="small" long="true" shape="circle">接任务</i-button>
+      <view slot="footer" style="text-align:right">          
+        <button class="accept-task-btn" bind:click="handleClick" size="mini" long="true" shape="circle" >接任务</button>
       </view>
   </i-card>
   <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb=""
