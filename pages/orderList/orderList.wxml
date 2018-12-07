@@ -1,5 +1,6 @@
 <!--pages/orderList/orderList.wxml-->
-<view>
-  <text>等你开发</text>
-  <i-button type="primary" bind:click="handleClick">这是一个按钮</i-button>
+<view>  
+  <i-card style="width:100%;color:#5cb48e;" class="task-card">
+   <text>等你开发</text>
+  </i-card>
 </view>
