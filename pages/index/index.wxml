@@ -10,6 +10,20 @@
   </block>  
  </swiper>  
 <view class="container">
+<i-panel title="" style="width:100%">
+    <view style="padding: 5px;width=100%;display:flex">
+      <picker mode="selector" range="{{taskTypes}}" value="0">
+        <view class="filter-item filter-active">
+          {{taskTypes[0]}}
+        </view>
+      </picker>
+      <view class="filter-item"><text>最新发布</text></view>
+      <view class="filter-item"><text>最多酬劳</text></view>
+      <view class="filter-item" style="margin-left:auto;">
+        <button class="torelease-btn" bindtap="toRelease" size="mini" shape="circle" >发布任务</button>
+      </view>
+    </view>
+</i-panel>
   <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb="" class="task-card">
       <view slot="content" class="task-content">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"/>
@@ -19,7 +33,7 @@
         </view>
       </view>
       <view slot="footer" style="text-align:right">          
-        <button class="accept-task-btn" bind:click="handleClick" size="mini" long="true" shape="circle" >接任务</button>
+        <i-button type="success" bind:click="handleClick" size="small" long="true" shape="circle">接任务</i-button>
       </view>
   </i-card>
   <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb=""
