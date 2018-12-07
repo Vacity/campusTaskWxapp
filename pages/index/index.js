@@ -4,8 +4,8 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
+    taskTypes: ['取物','租借','其他'],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     imgUrls: [
@@ -29,6 +29,11 @@ Page({
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
+    })
+  },
+  toRelease: function() {
+    wx.navigateTo({
+      url: '../release/release'
     })
   },
   onLoad: function () {

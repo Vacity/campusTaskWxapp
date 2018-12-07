@@ -1,0 +1,6 @@
+/* pages/release/release.wxss */
+.add-img-btn{
+  width:32px;
+  height:32px;
+  margin: 20px;
+}
