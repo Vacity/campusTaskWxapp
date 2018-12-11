@@ -3,3 +3,44 @@
 .task-card {
   margin-top: 10px;
 }
+
+.filter-item {
+  margin: 0 10px;
+  font-size: 14px;
+  color: #666;
+  height:30px;
+  line-height:30px;
+}
+
+.filter-active {
+  color: #5cb48e;
+}
+
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+}
+.description{
+  display: flex;
+  flex-direction: row;
+}
+
+.task-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: auto;
+  text-align: right;
+}
+
+.price{
+  margin-left: auto;
+  text-align: right;
+  color:red
+}
+.task-state{
+  margin-top:10rpx;
+  display: flex;
+  justify-content: flex-end;
+}
