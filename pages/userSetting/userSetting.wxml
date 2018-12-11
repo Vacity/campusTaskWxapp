@@ -1,2 +1,42 @@
 <!--pages/userSetting/userSetting.wxml-->
-<text>等你开发</text>
+<view class='basicinfo'>
+  <view class='basicinfo-avatar'>
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+  <open-data type="userNickName"></open-data>
+</view>
+
+<view class='moreinfo'>
+  <navigator class='moreinfo-block'>
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'>姓氏</text>
+      <text class='moreinfo-right'>雷</text>
+    </view>
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'>性别</text>
+      <text class='moreinfo-right'>女</text>
+    </view>
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'>注册时间</text>
+      <text class='moreinfo-right'>2018/12/10</text>
+    </view>
+  </navigator>
+
+  <view class="line"></view>
+
+  <navigator class='moreinfo-block'>
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'>评价</text>
+      <text class='moreinfo-right'>五星</text>
+    </view>
+  </navigator>
+
+  <view class="line"></view>
+
+  <navigator class='moreinfo-block'>
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'>积分</text>
+      <text class='moreinfo-right'>10.0</text>
+    </view>
+  </navigator>
+</view>
