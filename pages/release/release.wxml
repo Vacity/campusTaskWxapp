@@ -1,12 +1,12 @@
 <i-panel title="发布任务">
-    <i-input value="{{ title }}" title="任务标题" autofocus placeholder="请输入任务标题" />
+    <i-input value="{{ title }}" title="任务标题" placeholder="请输入任务标题" />
     <i-input value="{{ money }}" type="number" title="酬劳" placeholder="请输入酬劳价钱" />
    <i-panel>
     <view style='display:flex;padding:7px 15px;'>
       <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">任务类型</text>
       <picker style="width:100%;" mode="selector" range="{{taskTypes}}" value="0">
         <view style="color:#495060;font-size:14px;">
-          {{taskTypes[0]}}
+          {{taskType}}
         </view>
       </picker>
     </view>
@@ -16,4 +16,9 @@
     <view wx:for="{{imgs}}">
       <image src="{{item.url}}"></image>
     </view>
+    <view style="padding:20px;">
+      <i-button type="success" bind:click="handleSubmit" size="small" long="true" shape="circle">发布任务</i-button>
+    </view>
+    
+
 </i-panel>
