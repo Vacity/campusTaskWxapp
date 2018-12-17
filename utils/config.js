@@ -7,6 +7,11 @@ module.exports = {
     getTaskByTime: server + "/task/time",
     getTaskByMoney: server + "/task/payment",
     uploadFile: server + "/uploadfile",
-    getUserById: server + "/user/"
+    getUserById: server + "/user/",
+    getTaskPublished: server + "/task/publisher/",
+    getTaskAccepted: server + "/task/taker/",
+    closeTask: server + "/task/close/",
+    finishTask: server + "/task/finish",
+    confirmTask: server + "/task/confirm",
   }
 }

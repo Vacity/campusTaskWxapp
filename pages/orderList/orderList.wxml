@@ -1,24 +1,50 @@
 <!--pages/orderList/orderList.wxml-->
   <view style="display:flex;width:100%">
-    <view class="filter-item filter-active"><text>发布的发布</text></view>
-      <view class="filter-item"><text>接受的任务</text></view>
+    <view class="filter-item {{activeRelease}}" bindtap="showReleasedTasks"><text>发布的发布</text></view>
+      <view class="filter-item {{activeAccept}} "  bindtap="showAcceptedTasks"><text>接受的任务</text></view>
   </view>
 
 <view class="container">
-  <i-card title="2018-11-12 09:08" style="width:100%;color:#5cb48e;" extra="" thumb=""  class="task-card">
-    <view slot="content" class="task-content">
-      <view class="description">
-      <text>求帮孩子拿个快递的风格股份的公司风格化规范化给发</text>
-      <text class="price">¥3.00</text>
-      </view>
-      <view class="task-state">
-        <text>已完成</text>
-      </view>
-      </view>
-      <view slot="footer" style="display:flex;justify-content:center">
-      <i-button type="success" bind:click="handleClick" size="small"  shape="rectangle">修改</i-button>          
-        <i-button type="success" bind:click="handleClick" size="small"  shape="rectangle">取消</i-button>
-        <i-button type="success" bind:click="handleClick" size="small" shape="rectangle">确认</i-button>
-      </view>
-  </i-card>
+  <view class="task-release" wx:if="{{card==1}}" wx:for="{{releasedTasks}}" >
+    <i-card title="{{item.start}}" wx:key="item.id" style="width:100%;color:#5cb48e;" extra="" thumb=""  class="task-card">
+      <view slot="content" class="task-content">
+        <view class="description">
+        <text>{{item.title}}</text>
+        <text class="price">¥{{item.payment}}</text>
+        </view>
+        <view class="">
+          <view class="task-pic">
+          
+          </view>
+          <view class="task-state">
+            <text>{{item.state}}</text>
+          </view>
+        </view>
+        </view>
+        <view slot="footer" style="display:flex;justify-content:center">
+        <button class="button" id="{{item.id}}"  size="mini" bindtap="handleReleaseModify" >修改</button>          
+          <button class="button" id="{{item.id}}" size="mini" bindtap="handleReleaseCancel" >取消</button>
+          <button class="button" id="{{item.id}}"  size="mini" bindtap="handleReleaseFinish">确认</button>
+        </view>
+    </i-card>
+
+  </view>
+
+  <view class="task-accept" wx:if="{{card==2}}" wx:for="{{acceptedTasks}}">
+      <i-card title="{{item.start}}" wx:key="item.id" style="width:100%;color:#5cb48e"  extra="" thumb=""  class="task-card">
+        <view slot="content" class="task-content">
+         <view class="description">
+        <text>{{item.title}}</text>
+        <text class="price">¥{{item.payment}}</text>
+        </view>
+        <view class="task-state">
+          <text>{{item.state}}</text>
+        </view>
+        </view>
+        <view slot="footer" style="display:flex;justify-content:center">
+          <button class="button" id="{{item.id}}" size="mini" bindtap="handleAcceptCancwel" >取消</button>
+          <button class="button" id="{{item.id}}" size="mini" bindtap="handleAcceptFinish">确认</button>
+        </view>
+      </i-card>
+  </view>
 </view>

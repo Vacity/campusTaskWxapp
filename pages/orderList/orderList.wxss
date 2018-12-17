@@ -1,7 +1,11 @@
 /* pages/orderList/orderList.wxss */
-
+.container{
+  width:100%;
+}
 .task-card {
+  width:100%;
   margin-top: 10px;
+
 }
 
 .filter-item {
@@ -43,4 +47,18 @@
   margin-top:10rpx;
   display: flex;
   justify-content: flex-end;
+}
+
+.button {
+  background-color: #5cb48e;
+  color: #fff;
+}
+
+.task-release{
+  width:100%;
+  margin-top:20rpx;
+}
+.task-accept{
+  width:100%;
+  margin-top:20rpx;
 }
