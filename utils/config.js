@@ -6,6 +6,7 @@ module.exports = {
     getTaskByType: server + "/task/type/", 
     getTaskByTime: server + "/task/time",
     getTaskByMoney: server + "/task/payment",
-    uploadFile: server + "/uploadfile"
+    uploadFile: server + "/uploadfile",
+    getUserById: server + "/user/"
   }
 }

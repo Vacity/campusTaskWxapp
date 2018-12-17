@@ -10,7 +10,7 @@
   <view class='moreinfo-block'>
     <navigator class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>姓氏</text>
-      <text class='moreinfo-right'>雷</text>
+      <text class='moreinfo-right'>{{userInfo.name}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>
 
@@ -18,7 +18,7 @@
 
     <navigator class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-xingbie"></text>性别</text>
-      <text class='moreinfo-right'>女</text>
+      <text class='moreinfo-right'>{{userInfo.gender?"女":"男"}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>
 
@@ -26,7 +26,24 @@
 
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-shijian"></text>注册时间</text>
-      <text class='moreinfo-right'>2018/12/10</text>
+      <text class='moreinfo-right'>{{userInfo.joinDate}}</text>
+      <view class='empty'></view>
+    </view>
+
+    <view class="line"></view>
+
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'><text class="iconfont icon-fabu"></text>发布任务次数</text>
+      <text class='moreinfo-right'>{{userInfo.publish_times}}次</text>
+      <view class='empty'></view>
+    </view>
+
+    <view class="line"></view>
+
+    <view class='moreinfo-item'>
+      <text class='moreinfo-left'><text class="iconfont icon-jieshou"></text>接受任务次数</text>
+      <text class='moreinfo-right'>{{userInfo.take_times}}次</text>
+      <view class='empty'></view>
     </view>
   </view>
 
@@ -36,11 +53,12 @@
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-weibiaoti527"></text>评价</text>
       <text class='moreinfo-right'>
+      <block wx:for='{{userInfo.comment_star}}' >
         <text class="iconfont icon-iconstar"></text>
-        <text class="iconfont icon-iconstar"></text>
-        <text class="iconfont icon-iconstar"></text>
-        <text class="iconfont icon-iconstar"></text>
-        <text class="iconfont icon-iconstar"></text>
+      </block>
+      <block wx:for='{{5-userInfo.comment_star}}'>
+        <text class="iconfont icon-iconstar-empty"></text>
+      </block>
       </text>
       <text class="iconfont icon-youjiantou"></text>
     </view>
@@ -51,7 +69,7 @@
   <navigator class='moreinfo-block' url="./userCoin" open-type="navigate">
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-huobiduihuan"></text>积分</text>
-      <text class='moreinfo-right'>10</text>
+      <text class='moreinfo-right'>{{userInfo.coins}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </view>
   </navigator>

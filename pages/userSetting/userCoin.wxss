@@ -59,7 +59,7 @@
 }
 
 .coin-list .coin-list-item .detail {
-  margin: 0 10rpx;
+  margin: 0 20rpx;
   height: 80rpx;
   padding: 36rpx 0;
 }
