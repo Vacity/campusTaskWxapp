@@ -8,7 +8,7 @@
 
 <view class='moreinfo'>
   <view class='moreinfo-block'>
-    <navigator class='moreinfo-item'>
+    <navigator class='moreinfo-item' url="./userModify?type=name&value={{userInfo.name}}" open-type="navigate">
       <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>姓氏</text>
       <text class='moreinfo-right'>{{userInfo.name}}</text>
       <text class="iconfont icon-youjiantou"></text>
@@ -16,9 +16,9 @@
 
     <view class="line"></view>
 
-    <navigator class='moreinfo-item'>
+    <navigator class='moreinfo-item' url="./userModify?type=gender&value={{userInfo.gender}}" open-type="navigate">
       <text class='moreinfo-left'><text class="iconfont icon-xingbie"></text>性别</text>
-      <text class='moreinfo-right'>{{userInfo.gender?"女":"男"}}</text>
+      <text class='moreinfo-right'>{{userInfo.gender}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>
 

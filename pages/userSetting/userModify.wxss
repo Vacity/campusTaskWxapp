@@ -1,0 +1,14 @@
+/* pages/userSetting/userModify.wxss */
+
+page {
+  background-color: rgb(238, 236, 244);
+}
+
+.section {
+  background-color: rgb(252, 252, 252);
+  font-size: 15px;
+  margin: 15rpx 0;
+  padding: 15rpx 20rpx; 
+  border: 1rpx solid;
+  border-color: rgb(218, 216, 223);
+}
