@@ -1,20 +1,60 @@
 <i-panel title="发布任务">
-    <i-input value="{{ title }}" title="任务标题" placeholder="请输入任务标题" />
-    <i-input value="{{ money }}" type="number" title="酬劳" placeholder="请输入酬劳价钱" />
+    <i-input value="{{ title }}" bind:change="bindInputTitle" title="任务标题" type="textarea" placeholder="请输入任务标题" />
+    <i-input value="{{ money }}" bind:change="bindInputMoney" type="number" title="酬劳" placeholder="请输入酬劳价钱" />
+     <i-panel>
+    <view style='display:flex;padding:7px 15px;'>
+      <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">开始日期</text>
+      <picker style="width:100%;" mode="date" value="{{startDate}}" bindchange="setStartDate">
+        <view style="color:#495060;font-size:14px;">
+          {{startDate}}
+        </view>
+      </picker>
+    </view>
+   </i-panel>
+   <i-panel>
+    <view style='display:flex;padding:7px 15px;'>
+      <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">开始时间</text>
+      <picker style="width:100%;" mode="time" value="{{startTime}}" bindchange="setStartTime">
+        <view style="color:#495060;font-size:14px;">
+          {{startTime}}
+        </view>
+      </picker>
+    </view>
+   </i-panel>
+    <i-panel>
+    <view style='display:flex;padding:7px 15px;'>
+      <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">结束日期</text>
+      <picker style="width:100%;" mode="date" value="{{endDate}}" bindchange="setEndDate">
+        <view style="color:#495060;font-size:14px;">
+          {{endDate}}
+        </view>
+      </picker>
+    </view>
+   </i-panel>
+   <i-panel>
+    <view style='display:flex;padding:7px 15px;'>
+      <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">结束时间</text>
+      <picker style="width:100%;" mode="time" value="{{endTime}}" bindchange="setEndTime">
+        <view style="color:#495060;font-size:14px;">
+          {{endTime}}
+        </view>
+      </picker>
+    </view>
+   </i-panel>
    <i-panel>
     <view style='display:flex;padding:7px 15px;'>
       <text style="color:#495060;min-width:65px;padding-right:10px;font-size:14px;">任务类型</text>
-      <picker style="width:100%;" mode="selector" range="{{taskTypes}}" value="0">
+      <picker style="width:100%;" mode="selector" range="{{taskTypes}}" value="0" bindchange="setTaskType">
         <view style="color:#495060;font-size:14px;">
           {{taskType}}
         </view>
       </picker>
     </view>
    </i-panel>
-    <i-input value="{{ description }}" style="height:200px;" type="textarea" title="详细描述" placeholder="请输入详细描述(最多50字)" maxlength="50" />
-    <image class='add-img-btn' src="../../utils/imgs/addImg.png" bindtap='chooseImg'></image>
-    <view wx:for="{{imgs}}">
-      <image src="{{item.url}}"></image>
+    <i-input value="{{ description }}" bind:change='bindInputDescription' style="height:200px;" type="textarea" title="详细描述" placeholder="请输入详细描述(最多50字)" maxlength="50" />
+    <view><image class='add-img-btn' src="../../utils/imgs/addImg.png" bindtap='chooseImg'></image></view>
+    <view style="display:inline-block" wx:for="{{imgs}}" wx:key="{{item}}">
+      <image class='taskImg' src="{{item}}"></image>
     </view>
     <view style="padding:20px;">
       <i-button type="success" bind:click="handleSubmit" size="small" long="true" shape="circle">发布任务</i-button>

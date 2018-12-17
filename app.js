@@ -12,24 +12,24 @@ App({
         wx.login({
           success: res => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            network.GET({
-              url: api.login + "?code=" + res.code,
-              success: res => {
-                // console.log("login data:", res)
-                if (res.data && res.code !== -1 && res.data.userId) {
-                  this.globalData.userId = res.data.userId;
-                  this.globalData.phone = res.data.phone;
-                  // 初始化websocket
-                  // ws.launch(res.data.userId);
-                } else {
-                  wx.showToast({
-                    title: '登录失败',
-                    icon: 'none',
-                    duration: 5000
-                  })
-                }
-              }
-            })
+            // network.GET({
+            //   url: api.login + "?code=" + res.code,
+            //   success: res => {
+            //     // console.log("login data:", res)
+            //     if (res.data && res.code !== -1 && res.data.userId) {
+            //       this.globalData.userId = res.data.userId;
+            //       this.globalData.phone = res.data.phone;
+            //       // 初始化websocket
+            //       // ws.launch(res.data.userId);
+            //     } else {
+            //       wx.showToast({
+            //         title: '登录失败',
+            //         icon: 'none',
+            //         duration: 5000
+            //       })
+            //     }
+            //   }
+            // })
           }
         })
       }

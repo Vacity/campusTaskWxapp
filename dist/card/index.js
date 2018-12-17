@@ -6,6 +6,10 @@ Component({
     },
 
     properties: {
+        data: {
+            type: Object,
+            value: {}
+        },
         full: {
             type: Boolean,
             value: false
@@ -21,6 +25,12 @@ Component({
         extra: {
             type: String,
             value: ''
-        }
+        },
+    },
+
+  methods: {
+    clickExtra() {
+      this.triggerEvent('clickExtra', this.data, this.data)
     }
+  }
 });
