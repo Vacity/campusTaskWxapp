@@ -85,18 +85,19 @@ Page({
         title: this.data.title,
         content: this.data.description,
         payment: this.data.money,
-        start: new Date(Date.parse((this.data.startDate + " " + this.data.startTime + ":00").replace(/-/g, "/"))),
-        end: new Date(Date.parse((this.data.endDate + " " + this.data.endTime + ":00").replace(/-/g, "/"))),
+        start: this.data.startDate + " " + this.data.startTime + ":00",
+        end: this.data.endDate + " " + this.data.endTime + ":00",
         type: typeData,
         publisher: app.globalData.user.id,
-        publisherIconUrl: app.globalData.user.avatar
+        publisherIconUrl: app.globalData.user.avatar,
+        pictureUrl: this.data.imgs.join("@")
       },
       success: res => {
         if (res.success) {
           wx.showToast({
             title: '发布成功',
             icon: 'none',
-            duration: 5000
+            duration: 2000
           })
           wx.navigateBack({
             delta: 1
@@ -105,7 +106,7 @@ Page({
           wx.showToast({
             title: '发布失败',
             icon: 'none',
-            duration: 5000
+            duration: 2000
           })
         }
       }

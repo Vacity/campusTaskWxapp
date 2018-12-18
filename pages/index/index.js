@@ -126,7 +126,11 @@ Page({
         })
       }
     })
-
+    this.setData({
+      activeType: '',
+      activeTime: 'filter-active',
+      activeMoney: '',
+    });
     network.GET({
       url: api.getTaskByTime,
       success: res => {
@@ -145,7 +149,7 @@ Page({
       }
     })
   },
-  onshow: function () {
+  onShow: function () {
     this.onLoad();
   },
   getTaskByType : function(e) {
@@ -236,6 +240,12 @@ Page({
     for(var i =0,len=list.length;i<len;i++){
       list[i].start = timeApi.formatDateAndTime(new Date(list[i].start));
       list[i].end = timeApi.formatDateAndTime(new Date(list[i].end));
+      if (!list[i].publisherIconUrl) {
+        list[i].publisherIconUrl ="../../utils/imgs/defaultAvatar.gif";
+      }
+      if (list[i].pictureUrl && list[i].pictureUrl!="") { 
+        list[i].pictureUrl = list[i].pictureUrl.split("@");
+      }
     }
     this.setData({
       taskList: list
@@ -243,19 +253,26 @@ Page({
   },
   handleClick: function(e){
     var task = e.target.dataset.item;
-    task.orderTaker = app.globalData.user.id;
-    task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
-    task.end = new Date(Date.parse((task.end + ":00").replace(/-/g, "/"))),
-    network.POST({
-      url: api.modifyTask,
-      data: task,
+    if (task.publisher == app.globalData.user.id){
+      wx.showToast({
+        title: '不可以接受自己发布的任务喔',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    // task.orderTaker = app.globalData.user.id;
+    // task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
+    // task.end = new Date(Date.parse((task.end + ":00").replace(/-/g, "/"))),
+    network.GET({
+      url: api.takeTask + task.id + "/" + app.globalData.user.id,
       success: res => {
         if (res.success) {
           wx.showToast({
-            title: '发布成功',
+            title: '接单成功',
             icon: 'none',
-            duration: 5000
+            duration: 2000
           })
+          this.onLoad();
           wx.navigateBack({
             delta: 1
           })
@@ -263,10 +280,19 @@ Page({
           wx.showToast({
             title: '发布失败',
             icon: 'none',
-            duration: 5000
+            duration: 2000
           })
         }
       }
+    })
+  },
+  previewImg: function(event) {
+    var src = event.currentTarget.dataset.src;//获取data-src
+    var imgList = event.currentTarget.dataset.list;//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
     })
   }
 })
