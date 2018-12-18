@@ -1,13 +1,15 @@
 /* pages/orderList/orderList.wxss */
-.container{
-  width:100%;
-}
 .task-card {
   width:100%;
   margin-top: 10px;
 
 }
-
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
 .filter-item {
   margin: 0 10px;
   font-size: 14px;
@@ -77,4 +79,32 @@
   height:80rpx;
   display:flex;
   flex-direction: row;
+}
+
+
+.detail-container {
+  width: 280px;
+  height: 100%;
+  color:#fff;
+  font-size: 16px;
+}
+.detail-tip {
+  font-size: 12px;
+  flex:1;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  color: #eee;
+}
+
+.detail-label {
+  margin-right: 30px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.detail-row {
+  margin: 20px 20px;
+  /* border-bottom: 0.5px solid #ccc; */
 }

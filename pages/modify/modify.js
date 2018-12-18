@@ -27,6 +27,25 @@ Page({
       id: decodeURIComponent(options.id),
 
     })
+    network.GET({
+      url: api.getTaskDetail+this.data.id,
+      success: res => {
+        if (res.success == true) {
+            this.setData({
+              title:res.content.title,
+              description:res.content.content,
+              money:res.content.payment,
+            })
+        } else {
+          wx.showToast({
+            title: '修改失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
+
 
   },
   chooseImg: function () {

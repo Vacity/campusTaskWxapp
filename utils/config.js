@@ -19,7 +19,7 @@ module.exports = {
     confirmTask: server + "/task/confirm/",
     modifyTask: server + "/task/update",
     updateUser: server + "/user/update",
-    getCoinsByUserId: server + "/user/{id}/coins"
-
+    getCoinsByUserId: server + "/user/{id}/coins",
+    getTaskDetail: server + "/task/id/",
   }
 }

@@ -8,17 +8,24 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user:null,
     card: 1,
     activeRelease: 'filter-active',
     activeAccept: '',
-    releasedTasks:[1,2,3,4],
-    acceptedTasks:[1,2,3,4],
+    releasedTasks:[],
+    acceptedTasks:[],
+    showDetail:false,
+    currentTask:{},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    this.setData({
+      user:app.globalData.user
+    })
     network.GET({
       url: api.getTaskPublished + "1",
       success: res => {
@@ -27,6 +34,7 @@ Page({
             releasedTasks: res.content
           });
           this.formatReleasedTaskTime();
+          this.preprocessReleaseData();
         } else {
           wx.showToast({
             title: '查询失败',
@@ -158,7 +166,7 @@ Page({
       success: res => {
         if (res.success) {
           this.setData({
-            releasedTasks: res.content
+            releasedTasks: res.content.tasks
           });
           this.formatReleasedTaskTime();
           this.preprocessReleaseData();
@@ -189,7 +197,7 @@ Page({
       success: res => {
         if (res.success) {
           this.setData({
-            acceptedTasks: res.content
+            acceptedTasks: res.content.tasks
           });
           this.formatAcceptedTaskTime();
           this.preprocessAcceptData();
@@ -205,6 +213,17 @@ Page({
 
   },
 
+//查看任务详情
+  toggleDetail: function(e) {
+    this.setData({
+      showDetail: !this.data.showDetail
+    });
+    if (this.data.showDetail) {
+      this.setData({
+        currentTask: e.detail.data
+      })
+    }
+  },
 
   preprocessReleaseData: function(){
     var list=this.data.releasedTasks;
@@ -250,6 +269,10 @@ Page({
           list[i].stateText="申诉中";
         }
     }
+    this.setData({
+      releasedTasks: list
+    })
+
   },
 
 
@@ -279,6 +302,9 @@ Page({
         list[i].stateText = "申诉中";
       }
     }
+    this.setData({
+      acceptedTasks: list
+    })
   },
 
 
