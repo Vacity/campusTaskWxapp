@@ -13,5 +13,6 @@ module.exports = {
     closeTask: server + "/task/close/",
     finishTask: server + "/task/finish",
     confirmTask: server + "/task/confirm",
+    updateUser: server + "/user/update"
   }
 }
