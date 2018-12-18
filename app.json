@@ -3,8 +3,9 @@
     "pages/index/index",
     "pages/release/release",
     "pages/orderList/orderList",
+    "pages/userSetting/userCoin",
     "pages/userSetting/userSetting",
-    "pages/userSetting/userCoin"
+    "pages/userSetting/userModify"
   ],
   "window": {
     "backgroundTextStyle": "light",

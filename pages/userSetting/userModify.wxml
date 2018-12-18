@@ -1,4 +1,4 @@
 <!--pages/userSetting/userModify.wxml-->
 <view class="section">
-  <input value="{{value}}" auto-focus />
+  <input value="{{value}}" maxlength="10" bindconfirm="confirmModify" auto-focus />
 </view>

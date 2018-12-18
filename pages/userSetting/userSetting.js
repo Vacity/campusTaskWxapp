@@ -1,10 +1,10 @@
 // pages/userSetting/userSetting.js
-const network = require("../../utils/network.js")
+const network = require("../../utils/network.js");
 const {
   api
-} = require("../../utils/config.js")
+} = require("../../utils/config.js");
 const timeApi = require('../../utils/util.js');
-const app = getApp()
+const app = getApp();
 
 Page({
 
