@@ -5,6 +5,12 @@ const {
 } = require("../../utils/config.js");
 const timeApi = require('../../utils/util.js');
 const app = getApp();
+const stateMap = new Map([
+  ["UNCHECKED", "未审核"],
+  ["CHECKING", "审核中"],
+  ["CHECKED", "已审核"],
+  ["CLOSED", "封号"]
+]);
 
 Page({
 
@@ -19,25 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    network.GET({
-      // url: api.getUserById + app.globaldata.userId,
-      url: api.getUserById + "1",
-      success: res => {
-        if (res.success) {
-          res.content.joinDate = timeApi.formatDateAndTime(new Date(res.content.joinDate));
-          res.content.gender = res.content.gender ? "女" : "男";
-          this.setData({
-            userInfo: res.content
-          });
-        } else {
-          wx.showToast({
-            title: '查询失败',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      }
-    })
+    this.loadUserInfo();
   },
 
   /**
@@ -72,7 +60,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.loadUserInfo();
   },
 
   /**
@@ -87,5 +75,29 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  loadUserInfo: function() {
+    network.GET({
+      url: api.getUserById + app.globalData.user.id,
+      success: res => {
+        if (res.success) {
+          app.globalData.user = res.content;
+
+          res.content.joinDate = timeApi.formatDateAndTime(new Date(res.content.joinDate));
+          res.content.gender = res.content.gender ? "男" : "女";
+          res.content.state = stateMap.get(res.content.state);
+          this.setData({
+            userInfo: res.content
+          });
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    });
   }
 })

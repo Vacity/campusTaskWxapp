@@ -6,6 +6,7 @@
     "pages/userSetting/userCoin",
     "pages/userSetting/userSetting",
     "pages/userSetting/userModify",
+    "pages/userSetting/userPicture",
     "pages/modify/modify",
     "pages/index/right"
   ],

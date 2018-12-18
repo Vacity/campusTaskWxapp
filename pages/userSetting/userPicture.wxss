@@ -1,0 +1,54 @@
+/* pages/userSetting/userPicture.wxss */
+
+page {
+  background-color: rgb(238, 236, 244);
+}
+
+.info {
+  margin: 20rpx;
+  background-color: rgb(252, 252, 252);
+}
+
+.info .block {
+  display: flex;
+  padding: 15rpx;
+  font-size: 14px;
+  margin: 0rpx 20rpx;
+}
+
+.info .block .title {
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.info .block .content {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.picture {
+  margin: 20rpx 0rpx;
+  display:flex;                  
+  justify-content: center;
+}
+
+.picture image {
+  width: 90%;
+}
+
+.line {
+  background: #e0e3da;
+  width: 96%;
+  height: 5rpx;
+  margin-left: 2%;
+}
+
+.btn {
+  background-color: #5cb48e;
+  color: #fff;
+  display: flex;
+  justify-content:center;
+}

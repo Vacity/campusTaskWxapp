@@ -9,7 +9,7 @@
 <view class='moreinfo'>
   <view class='moreinfo-block'>
     <navigator class='moreinfo-item' url="./userModify?type=name&value={{userInfo.name}}" open-type="navigate">
-      <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>姓氏</text>
+      <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>姓名</text>
       <text class='moreinfo-right'>{{userInfo.name}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>
@@ -24,14 +24,24 @@
 
     <view class="line"></view>
 
+    <navigator class='moreinfo-item' url="./userPicture?value={{userInfo.state}}" open-type="navigate">
+      <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>用户状态</text>
+      <text class='moreinfo-right'>{{userInfo.state}}</text>
+      <text class="iconfont icon-youjiantou"></text>
+    </navigator>
+
+    <view class="line"></view>
+
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-shijian"></text>注册时间</text>
       <text class='moreinfo-right'>{{userInfo.joinDate}}</text>
       <view class='empty'></view>
     </view>
+  </view>
 
-    <view class="line"></view>
+  <view class="line"></view>
 
+  <view class='moreinfo-block'>
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-fabu"></text>发布任务次数</text>
       <text class='moreinfo-right'>{{userInfo.publish_times}}次</text>
@@ -45,12 +55,10 @@
       <text class='moreinfo-right'>{{userInfo.take_times}}次</text>
       <view class='empty'></view>
     </view>
-  </view>
 
-  <view class="line"></view>
+    <view class="line"></view>
 
-  <navigator class='moreinfo-block'>
-    <view class='moreinfo-item'>
+    <navigator class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-weibiaoti527"></text>评价</text>
       <text class='moreinfo-right'>
       <block wx:for='{{userInfo.comment_star}}' >
@@ -61,16 +69,16 @@
       </block>
       </text>
       <text class="iconfont icon-youjiantou"></text>
-    </view>
-  </navigator>
+    </navigator>
+  </view>
 
   <view class="line"></view>
 
-  <navigator class='moreinfo-block' url="./userCoin?coins={{userInfo.coins}}" open-type="navigate">
-    <view class='moreinfo-item'>
+  <view class='moreinfo-block'>
+    <navigator class='moreinfo-item' url="./userCoin" open-type="navigate">
       <text class='moreinfo-left'><text class="iconfont icon-huobiduihuan"></text>积分</text>
       <text class='moreinfo-right'>{{userInfo.coins}}</text>
       <text class="iconfont icon-youjiantou"></text>
-    </view>
-  </navigator>
+    </navigator>
+  </view>
 </view>

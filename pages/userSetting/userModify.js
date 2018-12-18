@@ -83,28 +83,9 @@ Page({
 
   },
 
-  validData: function(value) {
-    var data = {};
-    // data.id = app.globaldata.userId;
-    data.id = 1;
-    if (type == "name") {
-
-
-      data.name = value;
-    } else if (type == "gender") {
-      if (value != "男" && value != "女") {
-
-      }
-      data.gender = value == "男" ? 0 : 1;
-    }
-    return data;
-  },
-
   confirmModify: function(event) {
-    console.log(event.detail.value);
     var data = {};
-    // data.id = app.globaldata.userId;
-    data.id = 1;
+    data.id = app.globalData.user.id;
     if (type == "name") {
       data.name = event.detail.value;
     } else if (type == "gender") {
@@ -116,7 +97,7 @@ Page({
         });
         return;
       }
-      data.gender = event.detail.value == "男" ? 0 : 1;
+      data.gender = event.detail.value == "男" ? 1 : 0;
     }
 
     network.POST({

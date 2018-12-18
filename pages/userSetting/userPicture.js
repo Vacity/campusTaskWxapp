@@ -1,14 +1,9 @@
-// pages/userSetting/userCoin.js
+// pages/userSetting/userPicture.js
 const network = require("../../utils/network.js");
 const {
   api
 } = require("../../utils/config.js");
 const app = getApp();
-const typeMap = new Map([
-  ["FINISH_ORDER", "完成任务"],
-  ["CHARGE", "充值"],
-  ["PAY_ORDER", "发布任务"]
-]);
 
 Page({
 
@@ -16,34 +11,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: [],
-    coins: 0
+    state: "",
+    imageSrc: "",
+    imageFlag: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    network.GET({
-      url: api.getCoinsByUserId.replace("{id}", app.globalData.user.id),
-      success: res => {
-        if (res.success) {
-          for (var i = 0, len = res.content.length; i < len; i++) {
-            res.content[i].reason = typeMap.get(res.content[i].reason);
-          }
-          this.setData({
-            coins: app.globalData.user.coins,
-            list: res.content
-          });
-        } else {
-          wx.showToast({
-            title: '查询失败',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      }
-    })
+    var flag = false;
+    if (app.globalData.user.pictureUrl && app.globalData.user.pictureUrl != '') {
+      flag = true;
+    }
+    this.setData({
+      state: options.value,
+      imageSrc: app.globalData.user.pictureUrl,
+      imageFlag: flag
+    });
   },
 
   /**
@@ -93,5 +78,21 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  chooseImage(e) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      success: res => {
+        if (res.tempFilePaths.length > 0) {
+          this.setData({
+            imageSrc: res.tempFilePaths[0],
+            imageFlag: true
+          });
+        }
+      }
+    })
   }
 })
