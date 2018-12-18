@@ -11,8 +11,8 @@ Page({
     taskTypes: ['取物','租借','其他'],
     taskType: "取物",
     taskTypeData: ['DELIVER','RENT','OTHER'],
-    activeType: 'filter-active',
-    activeTime: '',
+    activeType: '',
+    activeTime: 'filter-active',
     activeMoney: '',
     currentTask: {},
     showDetail: false,
@@ -128,7 +128,7 @@ Page({
     })
 
     network.GET({
-      url: api.getTaskByType + "DELIVER",
+      url: api.getTaskByTime,
       success: res => {
         if (res.success) {
          this.setData({
@@ -240,13 +240,33 @@ Page({
     this.setData({
       taskList: list
     });
+  },
+  handleClick: function(e){
+    var task = e.target.dataset.item;
+    task.orderTaker = app.globalData.user.id;
+    task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
+    task.end = new Date(Date.parse((task.end + ":00").replace(/-/g, "/"))),
+    network.POST({
+      url: api.modifyTask,
+      data: task,
+      success: res => {
+        if (res.success) {
+          wx.showToast({
+            title: '发布成功',
+            icon: 'none',
+            duration: 5000
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          wx.showToast({
+            title: '发布失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   }
-  // getUserInfo: function(e) {
-  //   console.log(e)
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // }
 })

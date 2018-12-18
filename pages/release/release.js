@@ -85,8 +85,6 @@ Page({
         title: this.data.title,
         content: this.data.description,
         payment: this.data.money,
-        // start: this.data.startDate + " " + this.data.startTime+":00",
-        // end: this.data.endDate + " " + this.data.endTime+":00",
         start: new Date(Date.parse((this.data.startDate + " " + this.data.startTime + ":00").replace(/-/g, "/"))),
         end: new Date(Date.parse((this.data.endDate + " " + this.data.endTime + ":00").replace(/-/g, "/"))),
         type: typeData,
