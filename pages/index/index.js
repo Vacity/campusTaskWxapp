@@ -11,8 +11,8 @@ Page({
     taskTypes: ['取物','租借','其他'],
     taskType: "取物",
     taskTypeData: ['DELIVER','RENT','OTHER'],
-    activeType: 'filter-active',
-    activeTime: '',
+    activeType: '',
+    activeTime: 'filter-active',
     activeMoney: '',
     currentTask: {},
     showDetail: false,
@@ -59,6 +59,12 @@ Page({
               wx.navigateTo({
                 url: '../index/right'
               });
+            }
+          })
+        }else{
+          wx.getUserInfo({
+            success: res =>{
+              app.globalData.userInfo = res.userInfo;
             }
           })
         }
@@ -120,9 +126,13 @@ Page({
         })
       }
     })
-
+    this.setData({
+      activeType: '',
+      activeTime: 'filter-active',
+      activeMoney: '',
+    });
     network.GET({
-      url: api.getTaskByType + "DELIVER",
+      url: api.getTaskByTime,
       success: res => {
         if (res.success) {
          this.setData({
@@ -139,7 +149,7 @@ Page({
       }
     })
   },
-  onshow: function () {
+  onShow: function () {
     this.onLoad();
   },
   getTaskByType : function(e) {
@@ -230,17 +240,64 @@ Page({
     for(var i =0,len=list.length;i<len;i++){
       list[i].start = timeApi.formatDateAndTime(new Date(list[i].start));
       list[i].end = timeApi.formatDateAndTime(new Date(list[i].end));
+      if (!list[i].publisherIconUrl) {
+        list[i].publisherIconUrl ="../../utils/imgs/defaultAvatar.gif";
+      }
+      if (list[i].pictureUrl && list[i].pictureUrl!="") { 
+        list[i].pictureUrl = list[i].pictureUrl.split("@");
+      }
     }
     this.setData({
       taskList: list
     });
-  }
-  // getUserInfo: function(e) {
-  //   console.log(e)
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // }
+  },
+  handleClick: function(e){
+    var task = e.target.dataset.item;
+    if (task.publisher == app.globalData.user.id){
+      wx.showToast({
+        title: '不可以接受自己发布的任务喔',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    // task.orderTaker = app.globalData.user.id;
+    // task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
+    // task.end = new Date(Date.parse((task.end + ":00").replace(/-/g, "/"))),
+    network.GET({
+      url: api.takeTask + task.id + "/" + app.globalData.user.id,
+      success: res => {
+        if (res.success) {
+          wx.showToast({
+            title: '接单成功',
+            icon: 'none',
+            duration: 2000
+          })
+          this.onLoad();
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          wx.showToast({
+            title: '发布失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    })
+  },
+  previewImg: function(event) {
+    var src = event.currentTarget.dataset.src;//获取data-src
+    var imgList = event.currentTarget.dataset.list;//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad();
+    wx.hideNavigationBarLoading();
+  },
 })

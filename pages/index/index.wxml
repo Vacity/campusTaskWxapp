@@ -12,13 +12,13 @@
 <view class="container">
 <i-panel title="" style="width:100%">
     <view style="padding: 5px;width=100%;display:flex">
+      <view class="filter-item" bindtap='getTaskByTime'><text class="{{activeTime}}">最新发布</text></view>
+      <view class="filter-item" bindtap='getTaskByMoney'><text class="{{activeMoney}}">最多酬劳</text></view>
       <picker mode="selector" range="{{taskTypes}}" value="0" bindchange='getTaskByType'>
         <view class="filter-item {{activeType}}" id="type-filter">
           {{taskType}}
         </view>
       </picker>
-      <view class="filter-item" bindtap='getTaskByTime'><text class="{{activeTime}}">最新发布</text></view>
-      <view class="filter-item" bindtap='getTaskByMoney'><text class="{{activeMoney}}">最多酬劳</text></view>
       <view class="filter-item" style="margin-left:auto;">
         <button class="torelease-btn" bindtap="toRelease" size="mini" shape="circle" >发布任务</button>
       </view>
@@ -26,14 +26,14 @@
 </i-panel>
   <i-card wx:for="{{taskList}}" wx:key="item.id" data="{{item}}" title="截止:{{item.end}}" style="width:100%;color:#5cb48e;" bind:clickExtra="toggleDetail" extra="查看详情" thumb="" class="task-card">
       <view slot="content" class="task-content">
-        <image class="userinfo-avatar" src="../../utils/imgs/defaultAvatar.gif" mode="cover"/>
+        <image class="userinfo-avatar" src="{{item.publisherIconUrl}}" mode="cover"/>
         <view class="task-right">
           <text class="price">¥{{item.payment}}</text>
           <text>{{item.title}}</text>
         </view>
       </view>
       <view slot="footer" style="text-align:right">          
-        <i-button type="success" bind:click="handleClick" size="small" long="true" shape="circle">接任务</i-button>
+        <i-button type="success" bind:click="handleClick" data-item="{{item}}" size="small" long="true" shape="circle">接任务</i-button>
       </view>
   </i-card>
   <!-- <i-card title="2018-11-12" style="width:100%;color:#5cb48e;" extra="" thumb=""
@@ -52,10 +52,13 @@
 <i-drawer mode="left" visible="{{showDetail}}" bind:close="toggleDetail">
     <view class="detail-container">
         <image src='../../utils/imgs/detailbg.gif' style="width:100%;height:100%;position:absolute;z-index:-100;"></image>
-        <view style="display:flex"><image class="userinfo-avatar" src="../../utils/imgs/defaultAvatar.gif" mode="cover"/><text class="detail-tip">接单后查看发布人信息</text></view>
+        <view style="display:flex"><image class="userinfo-avatar" src="{{currentTask.publisherIconUrl}}" mode="cover"/><text class="detail-tip">接单后查看发布人信息</text></view>
         <view class="detail-row"><text class='detail-label'>任务标题:</text><text>{{currentTask.title}}</text></view>
         <view class="detail-row"><text class='detail-label'>任务详情:</text><text>{{currentTask.content}}</text></view>
-        <view class="detail-row"><text class='detail-label'>图片描述:</text><text wx:if="{{!currentTask.img}}">暂无图片</text></view>
+        <view class="detail-row"><text class='detail-label'>图片描述:</text><text wx:if="{{!currentTask.pictureUrl}}">暂无图片</text></view>
+        <view style="display:inline-block" wx:for="{{currentTask.pictureUrl}}" wx:key="{{item}}">
+          <image class='taskImg' bindtap="previewImg" src="{{item}}" data-list="{{currentTask.pictureUrl}}" data-src="{{item}}"></image>
+        </view>
     </view>
 </i-drawer>
 </view>

@@ -5,6 +5,7 @@ module.exports = {
     login: server + "/user/username/",
     register: server+ "/user/add",
     publish: server + "/task/add",
+    takeTask: server+ "/task/take/",
     getTaskByType: server + "/task/type/", 
     getTaskByTime: server + "/task/time",
     getTaskByMoney: server + "/task/payment",
