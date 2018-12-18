@@ -1,7 +1,9 @@
 const server = "http://47.101.183.63:8081";
 module.exports = {
   api: {
-    login: server + "/auth/login",
+    loginsession: "https://api.weixin.qq.com/sns/jscode2session",
+    login: server + "/user/username/",
+    register: server+ "/user/add",
     publish: server + "/task/add",
     getTaskByType: server + "/task/type/", 
     getTaskByTime: server + "/task/time",

@@ -53,7 +53,6 @@ Page({
                 that.setData({
                   imgs: tempImgs
                 })
-                console.log(tempImgs);
               }
             },
             fail: function(res2) {
@@ -81,7 +80,6 @@ Page({
     }else{
       typeData="OTHER";
     }
-    console.log(this.data.title,this.data.description,this.data.money);
     network.POST({
       url: api.publish,
       data: {
@@ -91,7 +89,7 @@ Page({
         start: this.data.startDate + " " + this.data.startTime+":00",
         end: this.data.endDate + " " + this.data.endTime+":00",
         type: typeData,
-        publisher: 1,
+        publisher: app.globalData.user.id,
       },
       success: res => {
         if (res.success==true) {
@@ -112,7 +110,7 @@ Page({
   },
   bindInputTitle: function(e) {
     this.setData({
-      title: e.detail.value
+      title: e.detail.detail.value
     })
   },
   bindInputMoney: function (e) {

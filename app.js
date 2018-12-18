@@ -1,8 +1,11 @@
 //app.js
 const network = require("/utils/network.js")
 const { api } = require("/utils/config.js")
+const timeApi = require('/utils/util.js');
+
 App({
   onLaunch: function () {
+    this.globalData.user = null;
     // 登录
     wx.login({
       success: res => {
@@ -11,25 +14,55 @@ App({
         // 登录
         wx.login({
           success: res => {
-            // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            // network.GET({
-            //   url: api.login + "?code=" + res.code,
-            //   success: res => {
-            //     // console.log("login data:", res)
-            //     if (res.data && res.code !== -1 && res.data.userId) {
-            //       this.globalData.userId = res.data.userId;
-            //       this.globalData.phone = res.data.phone;
-            //       // 初始化websocket
-            //       // ws.launch(res.data.userId);
-            //     } else {
-            //       wx.showToast({
-            //         title: '登录失败',
-            //         icon: 'none',
-            //         duration: 5000
-            //       })
-            //     }
-            //   }
-            // })
+            network.GET({
+              url: api.loginsession + "?appid=wx794fcc0f508c628f&secret=3ef2b04022c3108f6d5a0fc781e9db37&js_code=" + res.code + "&grant_type=authorization_code",
+              success: res2 => {
+                network.GET({
+                  url: api.login + res2.openid,
+                  success: response => {
+                    if (response.success) {
+                      if(response.content)
+                        this.globalData.user = response.content;
+                      else{
+                        wx.getUserInfo({
+                          success: infoRes => {
+                            var info = infoRes.userInfo
+                            console.log(infoRes.userInfo);
+                            network.POST({
+                              url: api.register,
+                              data: {
+                                username: res2.openid,
+                                nickname: infoRes.userInfo.nickName,
+                                gender: infoRes.userInfo.gender,
+                                avatar: infoRes.userInfo.avatarUrl,
+                                joindate: new Date()
+                              },
+                              success: registerResponse => {
+                                if (registerResponse.success == true) {
+                                  this.globalData.user = registerResponse.content;
+                                } else {
+                                  wx.showToast({
+                                    title: '注册失败',
+                                    icon: 'none',
+                                    duration: 5000
+                                  })
+                                }
+                              }
+                            })
+                          }
+                        })
+                      }
+                    } else {
+                      wx.showToast({
+                        title: '登录失败',
+                        icon: 'none',
+                        duration: 5000
+                      })
+                    }
+                  }
+                })
+              }
+            })
           }
         })
       }
@@ -56,6 +89,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    user: null
   }
 })
