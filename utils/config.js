@@ -11,7 +11,8 @@ module.exports = {
     getTaskPublished: server + "/task/publisher/",
     getTaskAccepted: server + "/task/taker/",
     closeTask: server + "/task/close/",
-    finishTask: server + "/task/finish",
-    confirmTask: server + "/task/confirm",
+    finishTask: server + "/task/finish/",
+    confirmTask: server + "/task/confirm/",
+    modifyTask: server + "/task/update/",
   }
 }
