@@ -6,6 +6,9 @@ const timeApi = require('/utils/util.js');
 App({
   onLaunch: function () {
     this.globalData.user = null;
+    wx.authorize({
+      scope: 'scope.userInfo'
+    })
     // 登录
     wx.login({
       success: res => {
@@ -34,8 +37,7 @@ App({
                                 username: res2.openid,
                                 nickname: infoRes.userInfo.nickName,
                                 gender: infoRes.userInfo.gender,
-                                avatar: infoRes.userInfo.avatarUrl,
-                                joindate: new Date()
+                                avatar: infoRes.userInfo.avatarUrl
                               },
                               success: registerResponse => {
                                 if (registerResponse.success == true) {
