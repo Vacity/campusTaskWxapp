@@ -1,4 +1,7 @@
 /* pages/userSetting/userCoin.wxss */
+page {
+  background-color: #efefef;
+}
 
 .basicinfo {
   position: relative;
@@ -29,7 +32,7 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
-  min-height: 2000rpx;
+  /* min-height: 2000rpx; */
 }
 
 .coin-list .coin-list-item {

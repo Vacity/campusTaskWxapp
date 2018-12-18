@@ -1,36 +1,20 @@
 <!--pages/userSetting/userCoin.wxml-->
 <view class='basicinfo'>
   <text class='basicinfo-title'>可用积分</text>
-  <text class='basicinfo-content'>10</text>
+  <text class='basicinfo-content'>{{coins}}</text>
 </view>
 
 <view class="page-wrapper">
-  <view class="coin-list">
-    <view class="coin-list-item  ">
-      <view class="change up">+1</view>
-      <view class="detail">
-        <view class="content">完成订单</view>
-        <view class="time">2018/12/16 00:00:00</view>
+  <block wx:for='{{list}}'>
+    <view class="coin-list">
+      <view class="coin-list-item">
+        <view wx:if="{{item.count>=0}}" class="change up">{{item.count}}</view>
+        <view wx:else class="change down">{{item.count}}</view>
+        <view class="detail">
+          <view class="content">{{item.reason}}</view>
+          <view class="time">2018/12/16 00:00:00</view>
+        </view>
       </view>
     </view>
-  </view>
-
-  <view class="coin-list">
-    <view class="coin-list-item">
-      <view class="change down">-20</view>
-      <view class="detail">
-        <view class="content">发布订单</view>
-        <view class="time">2018/12/16 00:00:00</view>
-      </view>
-    </view>
-  </view>
-  <view class="coin-list">
-    <view class="coin-list-item">
-      <view class="change up">+100</view>
-      <view class="detail">
-        <view class="content">完成订单</view>
-        <view class="time">2018/12/16 00:00:00</view>
-      </view>
-    </view>
-  </view>
+  </block>
 </view>

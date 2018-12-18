@@ -66,7 +66,7 @@
 
   <view class="line"></view>
 
-  <navigator class='moreinfo-block' url="./userCoin" open-type="navigate">
+  <navigator class='moreinfo-block' url="./userCoin?coins={{userInfo.coins}}" open-type="navigate">
     <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-huobiduihuan"></text>积分</text>
       <text class='moreinfo-right'>{{userInfo.coins}}</text>
