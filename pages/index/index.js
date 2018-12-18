@@ -294,5 +294,10 @@ Page({
       current: src, // 当前显示图片的http链接
       urls: imgList // 需要预览的图片http链接列表
     })
-  }
+  },
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad();
+    wx.hideNavigationBarLoading();
+  },
 })
