@@ -5,7 +5,9 @@
     "pages/orderList/orderList",
     "pages/userSetting/userCoin",
     "pages/userSetting/userSetting",
-    "pages/userSetting/userModify"
+    "pages/userSetting/userModify",
+    "pages/modify/modify",
+    "pages/index/right"
   ],
   "window": {
     "backgroundTextStyle": "light",
