@@ -13,6 +13,9 @@ module.exports = {
     closeTask: server + "/task/close/",
     finishTask: server + "/task/finish",
     confirmTask: server + "/task/confirm",
+    finishTask: server + "/task/finish/",
+    confirmTask: server + "/task/confirm/",
+    modifyTask: server + "/task/update/",
     updateUser: server + "/user/update",
     getCoinsByUserId: server + "/user/{id}/coins"
   }

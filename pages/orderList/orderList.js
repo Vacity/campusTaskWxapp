@@ -39,32 +39,36 @@ Page({
    * 修改已发布的任务信息
    */
   handleReleaseModify: function(event){
-
+      
+      wx.navigateTo({
+        url: '../modify/modify?id=1'
+      })
+    
   },
 
   /**
    * 取消已发布的任务
    */
   handleReleaseCancel: function(e){
-    Array.prototype.indexOf = function (val) {
-      for (var i = 0; i < this.length; i++) {
-        if (this[i].id == val) return i;
-      }
-      return -1;
-    };
+    // Array.prototype.indexOf = function (val) {
+    //   for (var i = 0; i < this.length; i++) {
+    //     if (this[i].id == val) return i;
+    //   }
+    //   return -1;
+    // };
 
-    Array.prototype.remove = function (val) {
-      var index = this.indexOf(val);
-      if (index > -1) {
-        this.splice(index, 1);
-      }
-    };
+    // Array.prototype.remove = function (val) {
+    //   var index = this.indexOf(val);
+    //   if (index > -1) {
+    //     this.splice(index, 1);
+    //   }
+    // };
 
     network.POST({
       url: api.closeTask + e.currentTarget.id,
       success: res => {
         if (res.success) {
-          releasedTasks.remove(e.currentTarget.id);
+          // releasedTasks.remove(e.currentTarget.id);
         } else {
           wx.showToast({
             title: '查询失败',
@@ -79,23 +83,62 @@ Page({
   /**
    * 确认发布的任务完成
    */
-  handleReleaseFinish: function(event){
-
+  handleReleaseFinish: function(e){
+    network.POST({
+      url: api.confirmTask + e.currentTarget.id,
+      success: res => {
+        if (res.success) {
+          // releasedTasks.remove(e.currentTarget.id);
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
 
   /**
    * 取消接受的任务
    */
 
-  handleAcceptCancel: function(event){
-
+  handleAcceptCancel: function(e){
+    network.POST({
+      url: api.closeTask + e.currentTarget.id,
+      success: res => {
+        if (res.success) {
+          // releasedTasks.remove(e.currentTarget.id);
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
 
   /**
    * 确认接受的任务已完成
    */
-  handleAcceptFinish: function(event){
-
+  handleAcceptFinish: function(e){
+    network.POST({
+      url: api.finishTask + e.currentTarget.id,
+      success: res => {
+        if (res.success) {
+          // releasedTasks.remove(e.currentTarget.id);
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -115,7 +158,7 @@ Page({
           this.setData({
             releasedTasks: res.content
           });
-          formatReleasedTaskTime();
+          this.formatReleasedTaskTime();
         } else {
           wx.showToast({
             title: '查询失败',
@@ -145,7 +188,7 @@ Page({
           this.setData({
             acceptedTasks: res.content
           });
-          formatAcceptedTaskTime();
+          this.formatAcceptedTaskTime();
         } else {
           wx.showToast({
             title: '查询失败',
