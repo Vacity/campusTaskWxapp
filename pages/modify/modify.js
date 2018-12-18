@@ -70,7 +70,7 @@ Page({
       complete: function (res) { },
     })
   },
-  handleSubmit: function () {
+  handleModify: function () {
     var typeData = "";
     if (this.data.taskType === '取物') {
       typeData = 'DELIVER';
@@ -81,8 +81,9 @@ Page({
     }
     console.log(this.data.title, this.data.description, this.data.money);
     network.POST({
-      url: api.publish,
+      url: api.modifyTask,
       data: {
+        id:this.data.id,
         title: this.data.title,
         content: this.data.description,
         payment: this.data.money,
@@ -94,13 +95,13 @@ Page({
       success: res => {
         if (res.success == true) {
           wx.showToast({
-            title: '发布成功',
+            title: '修改成功',
             icon: 'none',
             duration: 5000
           })
         } else {
           wx.showToast({
-            title: '发布失败',
+            title: '修改失败',
             icon: 'none',
             duration: 5000
           })

@@ -1,6 +1,7 @@
 const network = require("../../utils/network.js")
 const { api } = require("../../utils/config.js")
-const timeApi = require('../../utils/util.js');
+const timeApi = require('../../utils/util.js')
+const app=getApp();
 Page({
 
   /**
@@ -25,6 +26,7 @@ Page({
           this.setData({
             releasedTasks: res.content
           });
+          this.formatReleasedTaskTime();
         } else {
           wx.showToast({
             title: '查询失败',
@@ -91,7 +93,7 @@ Page({
           // releasedTasks.remove(e.currentTarget.id);
         } else {
           wx.showToast({
-            title: '查询失败',
+            title: '不能确认完成',
             icon: 'none',
             duration: 5000
           })
@@ -112,7 +114,7 @@ Page({
           // releasedTasks.remove(e.currentTarget.id);
         } else {
           wx.showToast({
-            title: '查询失败',
+            title: '此任务现在不可取消',
             icon: 'none',
             duration: 5000
           })
@@ -132,7 +134,7 @@ Page({
           // releasedTasks.remove(e.currentTarget.id);
         } else {
           wx.showToast({
-            title: '查询失败',
+            title: '确认完成失败',
             icon: 'none',
             duration: 5000
           })
@@ -159,6 +161,7 @@ Page({
             releasedTasks: res.content
           });
           this.formatReleasedTaskTime();
+          this.preprocessReleaseData();
         } else {
           wx.showToast({
             title: '查询失败',
@@ -189,6 +192,7 @@ Page({
             acceptedTasks: res.content
           });
           this.formatAcceptedTaskTime();
+          this.preprocessAcceptData();
         } else {
           wx.showToast({
             title: '查询失败',
@@ -199,6 +203,82 @@ Page({
       }
     })
 
+  },
+
+
+  preprocessReleaseData: function(){
+    var list=this.data.releasedTasks;
+    for(var i =0,len=list.length;i<len;i++){
+        if(list[i].state=="TO_TAKE_ORDER"){
+            list[i].modifyDisable=false;
+            list[i].cancelDisable=false;
+            list[i].confirmDisable=true;
+            
+            list[i].stateText="待接单";
+        }
+        else if(list[i].state=="CLOSED"){
+          list[i].modifyDisable = true;
+          list[i].cancelDisable = true;
+          list[i].confirmDisable = true;
+
+          list[i].stateText="已取消";
+        }
+        else if(list[i].state=="ORDER_TAKED"){
+          list[i].modifyDisable = true;
+          list[i].cancelDisable = true;
+          list[i].confirmDisable = true;
+
+          list[i].stateText="已接单";
+        }
+        else if(list[i].state=="FINISHED"){
+          list[i].modifyDisable = true;
+          list[i].cancelDisable = true;
+          list[i].confirmDisable = false;
+          list[i].stateText="已完成";
+        }
+        else if(list[i].state=="FINISHED_CONFIRM"){
+          list[i].modifyDisable = true;
+          list[i].cancelDisable = true;
+          list[i].confirmDisable = true;
+          list[i].stateText="已结束";
+        }
+        else if (list[i].state =="COMPLAINING"){
+          list[i].modifyDisable = true;
+          list[i].cancelDisable = true;
+          list[i].confirmDisable = true;
+
+          list[i].stateText="申诉中";
+        }
+    }
+  },
+
+
+  preprocessAcceptData: function () {
+    var list = this.data.releasedTasks;
+    for (var i = 0, len = list.length; i < len; i++) {
+      if (list[i].state == "ORDER_TAKED") {
+        list[i].cancelDisable = false;
+        list[i].confirmDisable = false;
+
+        list[i].stateText = "已接单";
+      }
+      else if (list[i].state == "FINISHED") {
+        list[i].cancelDisable = true;
+        list[i].confirmDisable = true;
+        list[i].stateText = "已完成";
+      }
+      else if (list[i].state == "FINISHED_CONFIRM") {
+        list[i].cancelDisable = true;
+        list[i].confirmDisable = true;
+        list[i].stateText = "已结束";
+      }
+      else if (list[i].state == "COMPLAINING") {
+        list[i].cancelDisable = true;
+        list[i].confirmDisable = true;
+
+        list[i].stateText = "申诉中";
+      }
+    }
   },
 
 

@@ -51,13 +51,13 @@
       </picker>
     </view>
    </i-panel>
-    <i-input value="{{ description }}" bind:change='bindInputDescription' style="height:200px;" type="textarea" title="详细描述" placeholder="请输入详细描述(最多50字)" maxlength="50" />
+    <i-input value="{{ description }}" bind:change='bindInputDescription' style="height:200px;" type="textarea" title="详细描述" maxlength="50" />
     <view><image class='add-img-btn' src="../../utils/imgs/addImg.png" bindtap='chooseImg'></image></view>
     <view style="display:inline-block" wx:for="{{imgs}}" wx:key="{{item}}">
       <image class='taskImg' src="{{item}}"></image>
     </view>
     <view style="padding:20px;">
-      <i-button type="success" bind:click="handleSubmit" size="small" long="true" shape="circle">发布任务</i-button>
+      <i-button type="success" bind:click="handleModify" size="small" long="true" shape="circle">修改任务</i-button>
     </view>
     
 
