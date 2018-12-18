@@ -61,6 +61,12 @@ Page({
               });
             }
           })
+        }else{
+          wx.getUserInfo({
+            success: res =>{
+              app.globalData.userInfo = res.userInfo;
+            }
+          })
         }
       }
     })
