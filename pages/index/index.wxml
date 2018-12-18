@@ -1,5 +1,4 @@
 <!--index.wxml-->
-<button open-type="getUserInfo" />
 <swiper indicator-dots="{{indicatorDots}}"  
         autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" style="height:100px;">  
   <block wx:for="{{imgUrls}}" wx:key="{{item.url}}">  
