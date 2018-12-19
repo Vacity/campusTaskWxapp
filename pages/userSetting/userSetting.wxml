@@ -24,6 +24,14 @@
 
     <view class="line"></view>
 
+    <navigator class='moreinfo-item' url="./userModify?type=phone&value={{userInfo.phone}}" open-type="navigate">
+      <text class='moreinfo-left'><text class="iconfont icon-xingbie"></text>手机号码</text>
+      <text class='moreinfo-right'>{{userInfo.phone}}</text>
+      <text class="iconfont icon-youjiantou"></text>
+    </navigator>
+
+    <view class="line"></view>
+
     <navigator class='moreinfo-item' url="./userPicture?value={{userInfo.state}}" open-type="navigate">
       <text class='moreinfo-left'><text class="iconfont icon-state"></text>用户状态</text>
       <text class='moreinfo-right'>{{userInfo.state}}</text>
@@ -58,7 +66,7 @@
 
     <view class="line"></view>
 
-    <navigator class='moreinfo-item'>
+    <view class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-weibiaoti527"></text>评价</text>
       <text class='moreinfo-right'>
       <block wx:for='{{starNum}}' >
@@ -70,7 +78,7 @@
       </block>
       </text>
       <view class='empty'></view>
-    </navigator>
+    </view>
   </view>
 
   <view class="line"></view>
