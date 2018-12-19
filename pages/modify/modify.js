@@ -148,22 +148,17 @@ Page({
   },
   bindInputTitle: function (e) {
     this.setData({
-      title: e.detail.value
+      title: e.detail.detail.value
     })
   },
   bindInputMoney: function (e) {
     this.setData({
-      money: e.detail.value
+      money: e.detail.detail.value
     })
   },
   bindInputDescription: function (e) {
-    wx.showToast({
-      title: '修改失败',
-      icon: 'none',
-      duration: 1000
-    })
     this.setData({
-      description: e.detail.value
+      description: e.detail.detail.value
     })
   },
   setTaskType: function (e) {
