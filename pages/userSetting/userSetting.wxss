@@ -34,7 +34,7 @@
   padding: 5rpx;
   border-radius: 5rpx;
   border-color: #c0c0c0;
-  box-shadow: 6rpx 6rpx 6rpx 6rpx #c0c0c0;
+  box-shadow: 6rpx 6rpx 6rpx 6rpx #eeeeee;
   background-color: #fff;
 }
 
@@ -73,11 +73,11 @@
 
 @font-face {
   font-family: 'iconfont';  /* project id 960387 */
-  src: url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.eot');
-  src: url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.woff') format('woff'),
-  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_960387_0jm0wuytxqlp.eot');
+  src: url('//at.alicdn.com/t/font_960387_0jm0wuytxqlp.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_960387_0jm0wuytxqlp.woff') format('woff'),
+  url('//at.alicdn.com/t/font_960387_0jm0wuytxqlp.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_960387_0jm0wuytxqlp.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -138,4 +138,8 @@
 
 .icon-state::before {
   content: "\e732";
+}
+
+.icon-phone::before {
+  content: "\e621";
 }

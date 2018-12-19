@@ -35,6 +35,12 @@ page {
   /* min-height: 2000rpx; */
 }
 
+.notice {
+  margin: 10rpx;
+  display: flex;
+  justify-content:center;
+}
+
 .coin-list .coin-list-item {
   position: relative;
   height: 160rpx;
