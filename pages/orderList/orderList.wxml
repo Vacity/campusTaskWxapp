@@ -25,6 +25,7 @@
         <button class="button" id="{{item.id}}" data= size="mini" bindtap="handleReleaseFinish" disabled='{{item.confirmDisable}}'>确认</button>
         <button class="button" id="{{item.id}}"  size="mini" bindtap="handleReleaseModify" disabled='{{item.modifyDisable}}'>修改</button>  
         <button class="button" id="{{item.id}}" size="mini" bindtap="handleReleaseCancel" disabled="{{item.cancelDisable}}">取消</button>
+        <button class="button" id="{{item.id}}" data-set="{{item}}" size="mini" bindtap="handleReleaseReport" disabled="{{!item.cancelDisable}}">投诉</button>
         </view>
     </i-card>
 
@@ -68,8 +69,9 @@
             value="{{starIndex}}">
         </i-rate>
     </i-cell>
-
-
+</i-modal>
+<i-modal title="投诉" visible="{{report}}" bind:ok="handleConfirmReport" bind:cancel="handleCancelReport">
+       <i-input value="{{ reportContent }}" bind:change="bindInputReport" title="" type="textarea" placeholder="请输入投诉内容" maxlength="50" />
 </i-modal>
 </view>
 

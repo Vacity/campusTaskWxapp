@@ -23,5 +23,6 @@ module.exports = {
     getCoinsByUserId: server + "/user/{id}/coins",
     getTaskDetail: server + "/task/id/",
     commentTask: server + "/task/comment/add",
+    complain: server+ "/complain/add"
   }
 }
