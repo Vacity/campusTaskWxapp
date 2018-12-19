@@ -25,7 +25,7 @@
     <view class="line"></view>
 
     <navigator class='moreinfo-item' url="./userModify?type=phone&value={{userInfo.phone}}" open-type="navigate">
-      <text class='moreinfo-left'><text class="iconfont icon-xingbie"></text>手机号码</text>
+      <text class='moreinfo-left'><text class="iconfont icon-phone"></text>手机号码</text>
       <text class='moreinfo-right'>{{userInfo.phone}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>

@@ -65,6 +65,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.loadUserInfo();
+    wx.stopPullDownRefresh();
   },
 
   /**

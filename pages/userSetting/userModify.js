@@ -26,7 +26,7 @@ Page({
     });
     if (type == "name") {
       wx.setNavigationBarTitle({
-        title: '修改姓氏'
+        title: '修改姓名'
       })
     } else if (type == "gender") {
       wx.setNavigationBarTitle({

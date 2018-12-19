@@ -5,16 +5,19 @@
 </view>
 
 <view class="page-wrapper">
-  <block wx:for='{{list}}'>
-    <view class="coin-list">
-      <view class="coin-list-item">
-        <view wx:if="{{item.count>=0}}" class="change up">{{item.count}}</view>
-        <view wx:else class="change down">{{item.count}}</view>
-        <view class="detail">
-          <view class="content">{{item.reason}}</view>
-          <view class="time">2018/12/16 00:00:00</view>
+  <view wx:if='{{list.length == 0}}' class="notice">暂无历史记录</view>
+  <block wx:else>
+    <block wx:for='{{list}}'>
+      <view class="coin-list">
+        <view class="coin-list-item">
+          <view wx:if="{{item.count>=0}}" class="change up">{{item.count}}</view>
+          <view wx:else class="change down">{{item.count}}</view>
+          <view class="detail">
+            <view class="content">{{item.reason}}</view>
+            <view class="time">2018/12/16 00:00:00</view>
+          </view>
         </view>
       </view>
-    </view>
+    </block>
   </block>
 </view>
