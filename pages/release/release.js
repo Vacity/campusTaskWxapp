@@ -56,6 +56,11 @@ Page({
               }
             },
             fail: function(res2) {
+              wx.showToast({
+                title: '图片太大啦',
+                icon: 'none',
+                duration: 5000
+              })
             }
           })
         }
@@ -71,6 +76,14 @@ Page({
     })
   },
   handleSubmit: function() {
+    if(!app.globalData.user.phone){
+      wx.showToast({
+        title: '完善信息后才能发布任务哦',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
     var typeData="";
     if (this.data.taskType === '取物'){
       typeData='DELIVER';
@@ -104,7 +117,7 @@ Page({
           })
         } else {
           wx.showToast({
-            title: '发布失败',
+            title: res.message,
             icon: 'none',
             duration: 2000
           })
