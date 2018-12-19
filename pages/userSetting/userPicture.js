@@ -1,4 +1,5 @@
 // pages/userSetting/userPicture.js
+const server = "http://47.101.183.63:8081";
 const network = require("../../utils/network.js");
 const {
   api
@@ -13,7 +14,8 @@ Page({
   data: {
     state: "",
     imageSrc: "",
-    imageFlag: false
+    imageFlag: "",
+    buttonDisabled: ""
   },
 
   /**
@@ -24,10 +26,15 @@ Page({
     if (app.globalData.user.pictureUrl && app.globalData.user.pictureUrl != '') {
       flag = true;
     }
+    var buttonDisabled = true;
+    if (options.value == "未审核" || app.globalData.user.state == "封号"){
+      buttonDisabled = false;
+    }
     this.setData({
       state: options.value,
       imageSrc: app.globalData.user.pictureUrl,
-      imageFlag: flag
+      imageFlag: flag,
+      buttonDisabled: buttonDisabled
     });
   },
 
@@ -91,6 +98,52 @@ Page({
             imageSrc: res.tempFilePaths[0],
             imageFlag: true
           });
+        }
+      }
+    })
+  },
+
+  submit(e) {
+    console.log(this.data.imageSrc);
+    wx.uploadFile({
+      url: api.uploadFile,
+      filePath: this.data.imageSrc,
+      name: 'myfiles',
+      success(res) {
+        res = JSON.parse(res.data)
+        if (res.success) {
+          var data = {};
+          data.id = app.globalData.user.id;
+          data.pictureUrl = server + res.content;
+          data.state = "CHECKING";
+          network.POST({
+            url: api.updateUser,
+            data: data,
+            success: res => {
+              if (res.success) {
+                var pages = getCurrentPages();
+                if (pages.length > 1) {
+                  var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+                  // 上一页面刷新然后返回
+                  beforePage.onLoad();
+                  wx.navigateBack({
+                    delta: 1
+                  });
+                  wx.showToast({
+                    title: '更新成功',
+                    icon: 'success',
+                    duration: 2000
+                  });
+                }
+              } else {
+                wx.showToast({
+                  title: '更新失败',
+                  icon: 'none',
+                  duration: 5000
+                });
+              }
+            }
+          })
         }
       }
     })

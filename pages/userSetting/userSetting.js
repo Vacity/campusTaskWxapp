@@ -9,6 +9,7 @@ const stateMap = new Map([
   ["UNCHECKED", "未审核"],
   ["CHECKING", "审核中"],
   ["CHECKED", "已审核"],
+  ["UNAPPROVED", "未通过"],
   ["CLOSED", "封号"]
 ]);
 
@@ -18,7 +19,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {}
+    userInfo: {},
+    starNum: 0,
+    emptyStarNum: 0,
+    halfStar: false
   },
 
   /**
@@ -87,8 +91,20 @@ Page({
           res.content.joinDate = timeApi.formatDateAndTime(new Date(res.content.joinDate));
           res.content.gender = res.content.gender ? "男" : "女";
           res.content.state = stateMap.get(res.content.state);
+
+          var starNum = Math.floor(res.content.comment_star);
+          var emptyStarNum = 5 - starNum;
+          var halfStar = false;
+          if (res.content.comment_star - starNum > 0) {
+            halfStar = true;
+            emptyStarNum--;
+          }
+
           this.setData({
-            userInfo: res.content
+            userInfo: res.content,
+            starNum: starNum,
+            emptyStarNum: emptyStarNum,
+            halfStar: halfStar
           });
         } else {
           wx.showToast({

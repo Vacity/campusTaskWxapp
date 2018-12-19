@@ -15,8 +15,11 @@
   <view wx:else class="block">
     <view>您还未上传认证照片，请上传您本人手持学生证拍摄的照片，要求照片上的学生证详情清晰可见</view>
   </view>
-  <view class="block">
+  <view wx:if="{{!buttonDisabled}}" class="block">
     <button class="btn" size="mini" bindtap="chooseImage">上传照片</button>
     <button class="btn" size="mini" bindtap="submit">提交审核</button>
+  </view>
+  <view wx:else class="block">
+    <view>审核中、已通过和被封号的用户无法更改认证照片</view>
   </view>
 </view>

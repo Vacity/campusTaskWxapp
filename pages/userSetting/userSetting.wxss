@@ -73,11 +73,11 @@
 
 @font-face {
   font-family: 'iconfont';  /* project id 960387 */
-  src: url('//at.alicdn.com/t/font_960387_s7ofr48kuy.eot');
-  src: url('//at.alicdn.com/t/font_960387_s7ofr48kuy.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_960387_s7ofr48kuy.woff') format('woff'),
-  url('//at.alicdn.com/t/font_960387_s7ofr48kuy.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_960387_s7ofr48kuy.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.eot');
+  src: url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.woff') format('woff'),
+  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_960387_ezvx2wgbbtv.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -129,4 +129,13 @@
 .icon-iconstar-empty::before {
   color: rgb(233, 233, 233);
   content: "\e61b";
+}
+
+.icon-iconstar-half::before {
+  color: rgb(255, 238, 0);
+  content: "\e6f0";
+}
+
+.icon-state::before {
+  content: "\e732";
 }

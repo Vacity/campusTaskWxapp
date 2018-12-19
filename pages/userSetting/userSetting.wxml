@@ -25,7 +25,7 @@
     <view class="line"></view>
 
     <navigator class='moreinfo-item' url="./userPicture?value={{userInfo.state}}" open-type="navigate">
-      <text class='moreinfo-left'><text class="iconfont icon-yonghuxingshi"></text>用户状态</text>
+      <text class='moreinfo-left'><text class="iconfont icon-state"></text>用户状态</text>
       <text class='moreinfo-right'>{{userInfo.state}}</text>
       <text class="iconfont icon-youjiantou"></text>
     </navigator>
@@ -61,14 +61,15 @@
     <navigator class='moreinfo-item'>
       <text class='moreinfo-left'><text class="iconfont icon-weibiaoti527"></text>评价</text>
       <text class='moreinfo-right'>
-      <block wx:for='{{userInfo.comment_star}}' >
+      <block wx:for='{{starNum}}' >
         <text class="iconfont icon-iconstar"></text>
       </block>
-      <block wx:for='{{5-userInfo.comment_star}}'>
+      <text wx:if="{{halfStar}}" class="iconfont icon-iconstar-half"></text>
+      <block wx:for='{{emptyStarNum}}'>
         <text class="iconfont icon-iconstar-empty"></text>
       </block>
       </text>
-      <text class="iconfont icon-youjiantou"></text>
+      <view class='empty'></view>
     </navigator>
   </view>
 
