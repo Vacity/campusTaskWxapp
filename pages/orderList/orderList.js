@@ -16,6 +16,10 @@ Page({
     acceptedTasks:[],
     showDetail:false,
     currentTask:{},
+    starIndex:1,
+    rate:false,
+    rateId:-1,
+    publisherInfo:{},
   },
 
   /**
@@ -23,26 +27,32 @@ Page({
    */
   onLoad: function (options) {
 
+ 
+    // network.GET({
+    //   url: api.getTaskPublished + this.data.user.id,
+    //   success: res => {
+    //     if (res.success) {
+    //       this.setData({
+    //         releasedTasks: res.content.tasks
+    //       });
+    //       this.formatReleasedTaskTime();
+    //       this.preprocessReleaseData();
+    //     } else {
+    //       wx.showToast({
+    //         title: '查询失败',
+    //         icon: 'none',
+    //         duration: 5000
+    //       })
+    //     }
+    //   }
+    // })
+  },
+
+
+  handleStarChange: function(e){
+    const index = e.detail.index;
     this.setData({
-      user:app.globalData.user
-    })
-    network.GET({
-      url: api.getTaskPublished + this.data.user.id,
-      success: res => {
-        if (res.success) {
-          this.setData({
-            releasedTasks: res.content.tasks
-          });
-          this.formatReleasedTaskTime();
-          this.preprocessReleaseData();
-        } else {
-          wx.showToast({
-            title: '查询失败',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      }
+      'starIndex': index
     })
   },
   /**
@@ -94,20 +104,24 @@ Page({
    * 确认发布的任务完成
    */
   handleReleaseFinish: function(e){
-    network.POST({
-      url: api.confirmTask + e.currentTarget.id,
-      success: res => {
-        if (res.success) {
-          // releasedTasks.remove(e.currentTarget.id);
-        } else {
-          wx.showToast({
-            title: '不能确认完成',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      }
+    this.setData({
+      rate:true,
+      rateId:e.currentTarget.id
     })
+    // network.POST({
+    //   url: api.confirmTask + e.currentTarget.id,
+    //   success: res => {
+    //     if (res.success) {
+    //       // releasedTasks.remove(e.currentTarget.id);
+    //     } else {
+    //       wx.showToast({
+    //         title: '不能确认完成',
+    //         icon: 'none',
+    //         duration: 5000
+    //       })
+    //     }
+    //   }
+    // })
   },
 
   /**
@@ -151,6 +165,59 @@ Page({
     })
   },
 
+
+  handleConfirmRate: function(e){
+    network.POST({
+      url: api.commentTask,
+      data: {
+        taskId: this.data.rateId,
+        star: this.data.starIndex,
+      },
+      success: res => {
+        if (res.success == true) {
+
+          network.POST({
+            url: api.confirmTask + this.data.rateId,
+            success: res => {
+              if (res.success) {
+                // releasedTasks.remove(e.currentTarget.id);
+              } else {
+                wx.showToast({
+                })
+              }
+            }
+          })
+          wx.showToast({
+            title: '评论成功',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          wx.showToast({
+            title: '评论失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    })
+
+
+
+      this.setData({
+        rate:false,
+        rateIndex:0,
+      })
+      
+
+  },
+
+  handleCancelRate: function(e){
+    this.setData({
+      rate: false,
+      rateIndex: 0,
+    })
+  },
   /**
    * 查看发布的任务
    */
@@ -219,10 +286,32 @@ Page({
       showDetail: !this.data.showDetail
     });
     if (this.data.showDetail) {
+
+      network.GET({
+        url: api.getUserById + e.detail.data.publisher,
+        success: res => {
+          if (res.success) {
+            this.setData({
+              publisherInfo: res.content
+            })
+          } else {
+            wx.showToast({
+              title: '查询失败',
+              icon: 'none',
+              duration: 5000
+            })
+          }
+        }
+      });
+      
       this.setData({
         currentTask: e.detail.data
       })
     }
+
+
+
+
   },
 
   preprocessReleaseData: function(){
@@ -313,6 +402,12 @@ Page({
     for (var i = 0, len = list.length; i < len; i++) {
       list[i].start = timeApi.formatDateAndTime(new Date(list[i].start));
       list[i].end = timeApi.formatDateAndTime(new Date(list[i].end));
+      if (!list[i].publisherIconUrl) {
+        list[i].publisherIconUrl = "../../utils/imgs/defaultAvatar.gif";
+      }
+      if (list[i].pictureUrl && list[i].pictureUrl != "") {
+        list[i].pictureUrl = list[i].pictureUrl.split("@");
+      }
     }
     this.setData({
       releasedTasks: list
@@ -324,6 +419,12 @@ Page({
     for (var i = 0, len = list.length; i < len; i++) {
       list[i].start = timeApi.formatDateAndTime(new Date(list[i].start));
       list[i].end = timeApi.formatDateAndTime(new Date(list[i].end));
+      if (!list[i].publisherIconUrl) {
+        list[i].publisherIconUrl = "../../utils/imgs/defaultAvatar.gif";
+      }
+      if (list[i].pictureUrl && list[i].pictureUrl != "") {
+        list[i].pictureUrl = list[i].pictureUrl.split("@");
+      }
     }
     this.setData({
       acceptedTasks: list
@@ -342,8 +443,40 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.setData({
+      user: app.globalData.user
+    })
+    network.GET({
+      url: api.getTaskPublished + this.data.user.id,
+      success: res => {
+        if (res.success) {
+          this.setData({
+            releasedTasks: res.content.tasks
+          });
+          this.formatReleasedTaskTime();
+          this.preprocessReleaseData();
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
+
+
+  previewImg: function (event) {
+    var src = event.currentTarget.dataset.src;//获取data-src
+    var imgList = event.currentTarget.dataset.list;//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏
