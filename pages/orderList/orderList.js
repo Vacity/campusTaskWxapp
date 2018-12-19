@@ -27,11 +27,11 @@ Page({
       user:app.globalData.user
     })
     network.GET({
-      url: api.getTaskPublished + "1",
+      url: api.getTaskPublished + this.data.user.id,
       success: res => {
         if (res.success) {
           this.setData({
-            releasedTasks: res.content
+            releasedTasks: res.content.tasks
           });
           this.formatReleasedTaskTime();
           this.preprocessReleaseData();
@@ -48,10 +48,10 @@ Page({
   /**
    * 修改已发布的任务信息
    */
-  handleReleaseModify: function(event){
+  handleReleaseModify: function(e){
       
       wx.navigateTo({
-        url: '../modify/modify?id=1'
+        url: '../modify/modify?id=' + e.currentTarget.id
       })
     
   },
@@ -162,7 +162,7 @@ Page({
     })
 
     network.GET({
-      url: api.getTaskPublished + "1",
+      url: api.getTaskPublished + this.data.user.id,
       success: res => {
         if (res.success) {
           this.setData({
@@ -193,7 +193,7 @@ Page({
     })
 
     network.GET({
-      url: api.getTaskAccepted + "1",
+      url: api.getTaskAccepted + this.data.user.id,
       success: res => {
         if (res.success) {
           this.setData({
@@ -277,7 +277,7 @@ Page({
 
 
   preprocessAcceptData: function () {
-    var list = this.data.releasedTasks;
+    var list = this.data.acceptedTasks;
     for (var i = 0, len = list.length; i < len; i++) {
       if (list[i].state == "ORDER_TAKED") {
         list[i].cancelDisable = false;

@@ -22,7 +22,7 @@
         </view>
         </view>
         <view slot="footer" style="display:flex;justify-content:center">
-        <button class="button" id="{{item.id}}"  size="mini" bindtap="handleReleaseFinish" disabled='{{item.confirmDisable}}'>确认</button>
+        <button class="button" id="{{item.id}}" data= size="mini" bindtap="handleReleaseFinish" disabled='{{item.confirmDisable}}'>确认</button>
         <button class="button" id="{{item.id}}"  size="mini" bindtap="handleReleaseModify" disabled='{{item.modifyDisable}}'>修改</button>  
         <button class="button" id="{{item.id}}" size="mini" bindtap="handleReleaseCancel" disabled="{{item.cancelDisable}}">取消</button>
         </view>

@@ -7,6 +7,7 @@ const server = "http://47.101.183.63:8081";
 Page({
   data: {
     id:null,
+    user:null,
     taskTypes: ['取物', '租借', '其他'],
     imgs: [],
     title: '',
@@ -25,17 +26,34 @@ Page({
   onLoad: function (options) {
     this.setData({
       id: decodeURIComponent(options.id),
-
+      user:app.globalData.user
     })
     network.GET({
       url: api.getTaskDetail+this.data.id,
       success: res => {
         if (res.success == true) {
+
+            var typeData = "";
+            if (this.data.taskType === 'DELIVER') {
+              typeData = '取物';
+            } else if (this.data.taskType === 'RENT') {
+              typeData = "租借";
+            } else {
+              typeData = "其他";
+            }
             this.setData({
               title:res.content.title,
-              description:res.content.content,
+              description:"这是描述",
               money:res.content.payment,
+              startDate: timeApi.formatDate(new Date(res.content.start)),
+              startTime: timeApi.formatTime(new Date(res.content.start)),
+              endDate: timeApi.formatDate(new Date(res.content.end)),
+              endTime: timeApi.formatTime(new Date(res.content.end)),
+              taskType: typeData,
             })
+
+
+      
         } else {
           wx.showToast({
             title: '修改失败',
@@ -109,7 +127,7 @@ Page({
         start: this.data.startDate + " " + this.data.startTime + ":00",
         end: this.data.endDate + " " + this.data.endTime + ":00",
         type: typeData,
-        publisher: 1,
+        publisher: this.data.user.id ,
       },
       success: res => {
         if (res.success == true) {
@@ -135,12 +153,17 @@ Page({
   },
   bindInputMoney: function (e) {
     this.setData({
-      money: e.detail.detail.value
+      money: e.detail.value
     })
   },
   bindInputDescription: function (e) {
+    wx.showToast({
+      title: '修改失败',
+      icon: 'none',
+      duration: 1000
+    })
     this.setData({
-      description: e.detail.detail.value
+      description: e.detail.value
     })
   },
   setTaskType: function (e) {
