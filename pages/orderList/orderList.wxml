@@ -40,6 +40,15 @@
         <view class="task-state">
           <text>{{item.stateText}}</text>
         </view>
+        <view>
+         <i-cell title="禁用点击和手势选择星" wx:if="{{item.commentStar}}">
+        <i-rate 
+            disabled="{{true}}"
+            value="{{item.commentStar}}">
+        </i-rate>
+
+       </i-cell>
+       </view>
         </view>
         <view slot="footer" style="display:flex;justify-content:center">
           <button class="button" id="{{item.id}}" size="mini" bindtap="handleAcceptFinish" disabled='{{item.confirmDisable}}'>确认</button>
