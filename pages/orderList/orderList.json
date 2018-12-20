@@ -5,6 +5,7 @@
     "i-card": "../../dist/card/index",
     "i-drawer": "../../dist/drawer/index",
     "i-rate": "../../dist/rate/index",
-    "i-modal": "../../dist/modal/index"
+    "i-modal": "../../dist/modal/index",
+    "i-input": "../../dist/input/index"
   }
 }

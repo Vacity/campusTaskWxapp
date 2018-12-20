@@ -4,7 +4,6 @@ const {
   api
 } = require("../../utils/config.js");
 const app = getApp();
-var type;
 
 Page({
 
@@ -12,24 +11,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    value: ""
+    value: "",
+    type: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    type = options.type;
+    var type = options.type;
     this.setData({
+      type: options.type,
       value: options.value
     });
     if (type == "name") {
       wx.setNavigationBarTitle({
-        title: '修改姓氏'
+        title: '修改姓名'
       })
     } else if (type == "gender") {
       wx.setNavigationBarTitle({
         title: '修改性别'
+      })
+    } else if (type == "phone") {
+      wx.setNavigationBarTitle({
+        title: '修改手机号码'
       })
     }
   },
@@ -84,6 +89,7 @@ Page({
   },
 
   confirmModify: function(event) {
+    var type = this.data.type;
     var data = {};
     data.id = app.globalData.user.id;
     if (type == "name") {
@@ -98,6 +104,17 @@ Page({
         return;
       }
       data.gender = event.detail.value == "男" ? 1 : 0;
+    } else if (type == "phone") {
+      var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      if (!reg.test(event.detail.value)){
+        wx.showToast({
+          title: '手机号码格式错误',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      data.phone = event.detail.value;
     }
 
     network.POST({

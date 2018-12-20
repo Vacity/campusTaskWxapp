@@ -8,7 +8,7 @@ const app = getApp();
 const stateMap = new Map([
   ["UNCHECKED", "未审核"],
   ["CHECKING", "审核中"],
-  ["CHECKED", "已审核"],
+  ["CHECKED", "已通过审核"],
   ["UNAPPROVED", "未通过"],
   ["CLOSED", "封号"]
 ]);
@@ -65,6 +65,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.loadUserInfo();
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -88,6 +89,8 @@ Page({
         if (res.success) {
           app.globalData.user = res.content;
 
+          res.content.name = res.content.name ? res.content.name : "";
+          res.content.phone = res.content.phone ? res.content.phone : "";
           res.content.joinDate = timeApi.formatDateAndTime(new Date(res.content.joinDate));
           res.content.gender = res.content.gender ? "男" : "女";
           res.content.state = stateMap.get(res.content.state);

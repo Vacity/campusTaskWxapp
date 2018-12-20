@@ -259,6 +259,7 @@ Page({
         icon: 'none',
         duration: 2000
       })
+      return;
     }
     // task.orderTaker = app.globalData.user.id;
     // task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
@@ -299,5 +300,6 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     this.onLoad();
     wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
   },
 })

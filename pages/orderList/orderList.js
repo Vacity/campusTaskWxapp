@@ -20,6 +20,9 @@ Page({
     rate:false,
     rateId:-1,
     publisherInfo:{},
+    reportTask: {},
+    report:false,
+    reportContent: "",
   },
 
   /**
@@ -65,7 +68,60 @@ Page({
       })
     
   },
+  /**
+     * 投诉已发布的任务信息
+     */
+  handleCancelReport: function(){
+    this.setData({
+      report: false,
+    });
+  },
+  handleConfirmReport: function() {
+    var task = this.data.reportTask;
 
+    network.POST({
+      url: api.complain,
+      data: {
+        id: task.id,
+        publisher: task.publisher,
+        orderTaker: task.orderTaker,
+        content: this.data.reportContent
+      },
+      success: res => {
+        if (res.success) {
+          wx.showToast({
+            title: '投诉成功',
+            icon: 'none',
+            duration: 2000
+          })
+          this.setData({
+            report: false,
+          });
+        } else {
+          wx.showToast({
+            title: res.message,
+            icon: 'none',
+            duration: 2000
+          })
+          this.setData({
+            report: false,
+          });
+        }
+      }
+    })
+  },
+  bindInputReport: function(e) {
+    this.setData({
+      reportContent: e.detail.detail.value
+    })
+  },
+  handleReleaseReport: function (e) {
+    this.setData({
+      reportTask: e.target.dataset.set,
+      report: true,
+      reportContent: "",
+    });
+  },
   /**
    * 取消已发布的任务
    */
@@ -321,40 +377,42 @@ Page({
             list[i].modifyDisable=false;
             list[i].cancelDisable=false;
             list[i].confirmDisable=true;
-            
+            list[i].reportDisable = false;
             list[i].stateText="待接单";
         }
         else if(list[i].state=="CLOSED"){
           list[i].modifyDisable = true;
           list[i].cancelDisable = true;
           list[i].confirmDisable = true;
-
+          list[i].reportDisable = false;
           list[i].stateText="已取消";
         }
         else if(list[i].state=="ORDER_TAKED"){
           list[i].modifyDisable = true;
           list[i].cancelDisable = true;
           list[i].confirmDisable = true;
-
+          list[i].reportDisable = true;
           list[i].stateText="已接单";
         }
         else if(list[i].state=="FINISHED"){
           list[i].modifyDisable = true;
           list[i].cancelDisable = true;
           list[i].confirmDisable = false;
+          list[i].reportDisable = true;
           list[i].stateText="已完成";
         }
         else if(list[i].state=="FINISHED_CONFIRM"){
           list[i].modifyDisable = true;
           list[i].cancelDisable = true;
           list[i].confirmDisable = true;
+          list[i].reportDisable = false;
           list[i].stateText="已结束";
         }
         else if (list[i].state =="COMPLAINING"){
           list[i].modifyDisable = true;
           list[i].cancelDisable = true;
           list[i].confirmDisable = true;
-
+          list[i].reportDisable = false;
           list[i].stateText="申诉中";
         }
     }
