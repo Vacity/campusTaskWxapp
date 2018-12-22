@@ -42,9 +42,25 @@ Page({
     })
   },
   toRelease: function() {
-    wx.navigateTo({
-      url: '../release/release'
-    })
+    network.GET({
+      url: api.getUserById + app.globalData.user.id,
+      success: res => {
+        if (res.success) {
+          app.globalData.user = res.content;
+          if (app.globalData.user.state != 'CHECKED'){
+            wx.showToast({
+              title: '您的身份还未审核通过喔，请耐心等待',
+              icon: 'none',
+              duration: 5000
+            });
+          }else{
+            wx.navigateTo({
+              url: '../release/release'
+            })
+          }
+        }
+      }
+    });
   },
   onLoad: function () {
     wx.getSetting({
@@ -105,7 +121,7 @@ Page({
                               wx.showToast({
                                 title: '注册失败',
                                 icon: 'none',
-                                duration: 5000
+                                duration: 2000
                               })
                             }
                           }
@@ -261,31 +277,44 @@ Page({
       })
       return;
     }
-    // task.orderTaker = app.globalData.user.id;
-    // task.start = new Date(Date.parse((task.start + ":00").replace(/-/g, "/"))),
-    // task.end = new Date(Date.parse((task.end + ":00").replace(/-/g, "/"))),
     network.GET({
-      url: api.takeTask + task.id + "/" + app.globalData.user.id,
+      url: api.getUserById + app.globalData.user.id,
       success: res => {
         if (res.success) {
-          wx.showToast({
-            title: '接单成功',
-            icon: 'none',
-            duration: 2000
-          })
-          this.onLoad();
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          wx.showToast({
-            title: '发布失败',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.user = res.content;
+          if (app.globalData.user.state != 'CHECKED') {
+            wx.showToast({
+              title: '您的身份还未审核通过喔，请耐心等待',
+              icon: 'none',
+              duration: 5000
+            });
+          } else {
+            network.GET({
+              url: api.takeTask + task.id + "/" + app.globalData.user.id,
+              success: res => {
+                if (res.success) {
+                  wx.showToast({
+                    title: '接单成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  this.onLoad();
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.showToast({
+                    title: '发布失败',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+              }
+            })
+          }
         }
       }
-    })
+    });
   },
   previewImg: function(event) {
     var src = event.currentTarget.dataset.src;//获取data-src
