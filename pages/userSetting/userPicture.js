@@ -23,7 +23,7 @@ Page({
    */
   onLoad: function(options) {
     var flag = false;
-    if (app.globalData.user.pictureUrl && app.globalData.user.pictureUrl != '') {
+    if (options.value != "未审核" && app.globalData.user.pictureUrl && app.globalData.user.pictureUrl != '') {
       flag = true;
     }
     var buttonDisabled = true;
