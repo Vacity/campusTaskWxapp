@@ -27,7 +27,7 @@ Page({
       flag = true;
     }
     var buttonDisabled = true;
-    if (options.value == "未审核" || app.globalData.user.state == "封号"){
+    if (options.value == "未审核" || options.value == "未通过" ||options.value == "封号"){
       buttonDisabled = false;
     }
     this.setData({
