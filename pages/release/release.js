@@ -36,9 +36,9 @@ Page({
     var tempImgs = this.data.imgs;
     var len = tempImgs.length;
     wx.chooseImage({
-      count: 9-len,
-      sizeType: [],
-      sourceType: [],
+      count: 9-len-1,
+      sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: function(res) {
         var addImg = res.tempFilePaths;
         for(var i =0;i<addImg.length;i++){
@@ -65,13 +65,7 @@ Page({
           })
         }
       },
-      fail: function(res) {
-        wx.showToast({
-          title: '无法选择图片',
-          icon: 'none',
-          duration: 5000
-        })
-      },
+      fail: function(res) {},
       complete: function(res) {},
     })
   },

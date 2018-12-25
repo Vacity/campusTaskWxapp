@@ -80,7 +80,7 @@
     </i-cell>
 </i-modal>
 <i-modal title="投诉" visible="{{report}}" bind:ok="handleConfirmReport" bind:cancel="handleCancelReport">
-       <i-input value="{{ reportContent }}" bind:change="bindInputReport" title="" type="textarea" placeholder="请输入投诉内容" maxlength="50" />
+       <view v-if="{{report}}" ><i-input value="{{ reportContent }}" bind:change="bindInputReport" title="" placeholder="请输入投诉内容" maxlength="50" /></view>
 </i-modal>
 </view>
 
