@@ -82,7 +82,7 @@ Page({
     network.POST({
       url: api.complain,
       data: {
-        id: task.id,
+        taskId: task.id,
         publisher: task.publisher,
         orderTaker: task.orderTaker,
         content: this.data.reportContent
