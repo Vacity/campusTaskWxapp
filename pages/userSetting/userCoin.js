@@ -33,7 +33,7 @@ Page({
           }
           this.setData({
             coins: app.globalData.user.coins,
-            list: res.content
+            list: res.content.reverse()
           });
         } else {
           wx.showToast({
