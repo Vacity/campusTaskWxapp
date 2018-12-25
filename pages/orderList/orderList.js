@@ -28,27 +28,47 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
 
- 
-    // network.GET({
-    //   url: api.getTaskPublished + this.data.user.id,
-    //   success: res => {
-    //     if (res.success) {
-    //       this.setData({
-    //         releasedTasks: res.content.tasks
-    //       });
-    //       this.formatReleasedTaskTime();
-    //       this.preprocessReleaseData();
-    //     } else {
-    //       wx.showToast({
-    //         title: '查询失败',
-    //         icon: 'none',
-    //         duration: 5000
-    //       })
-    //     }
-    //   }
-    // })
+    this.setData({
+      user: app.globalData.user
+    })
+    network.GET({
+      url: api.getTaskPublished + this.data.user.id,
+      success: res => {
+        if (res.success) {
+          this.setData({
+            releasedTasks: res.content.tasks
+          });
+          this.formatReleasedTaskTime();
+          this.preprocessReleaseData();
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
+    network.GET({
+      url: api.getTaskAccepted + this.data.user.id,
+      success: res => {
+        if (res.success) {
+          this.setData({
+            acceptedTasks: res.content.tasks
+          });
+          this.formatAcceptedTaskTime();
+          this.preprocessAcceptData();
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
 
 
@@ -154,7 +174,16 @@ Page({
         }
       }
     })
+
+    this.showReleasedTasks()
   },
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad();
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
+  },
+
 
   /**
    * 确认发布的任务完成
@@ -199,6 +228,8 @@ Page({
         }
       }
     })
+
+    this.showAcceptedTask()
   },
 
   /**
@@ -219,6 +250,7 @@ Page({
         }
       }
     })
+    this.showAcceptedTasks()
   },
 
 
@@ -258,7 +290,7 @@ Page({
       }
     })
 
-
+    this.showReleasedTasks()
 
       this.setData({
         rate:false,
@@ -501,29 +533,48 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      user: app.globalData.user
-    })
-    network.GET({
-      url: api.getTaskPublished + this.data.user.id,
-      success: res => {
-        if (res.success) {
-          this.setData({
-            releasedTasks: res.content.tasks
-          });
-          this.formatReleasedTaskTime();
-          this.preprocessReleaseData();
-        } else {
-          wx.showToast({
-            title: '查询失败',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      }
-    })
+      this.onLoad();
   },
 
+refreshData: function(){
+  network.GET({
+    url: api.getTaskPublished + this.data.user.id,
+    success: res => {
+      if (res.success) {
+        this.setData({
+          releasedTasks: res.content.tasks
+        });
+        this.formatReleasedTaskTime();
+        this.preprocessReleaseData();
+      } else {
+        wx.showToast({
+          title: '查询失败',
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    }
+  })
+
+  network.GET({
+    url: api.getTaskAccepted + this.data.user.id,
+    success: res => {
+      if (res.success) {
+        this.setData({
+          acceptedTasks: res.content.tasks
+        });
+        this.formatAcceptedTaskTime();
+        this.preprocessAcceptData();
+      } else {
+        wx.showToast({
+          title: '查询失败',
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    }
+  })
+},
 
   previewImg: function (event) {
     var src = event.currentTarget.dataset.src;//获取data-src

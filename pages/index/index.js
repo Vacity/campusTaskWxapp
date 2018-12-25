@@ -165,8 +165,29 @@ Page({
       }
     })
   },
-  onShow: function () {
-    this.onLoad();
+  onShow: function (e) {
+    this.setData({
+      activeType: '',
+      activeTime: 'filter-active',
+      activeMoney: '',
+    });
+    network.GET({
+      url: api.getTaskByTime,
+      success: res => {
+        if (res.success) {
+          this.setData({
+            taskList: res.content
+          });
+          this.formatTaskListTime();
+        } else {
+          wx.showToast({
+            title: '查询失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }
+    })
   },
   getTaskByType : function(e) {
     this.setData({
