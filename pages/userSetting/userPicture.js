@@ -125,15 +125,16 @@ Page({
                 if (pages.length > 1) {
                   var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
                   // 上一页面刷新然后返回
-                  beforePage.onLoad();
                   wx.navigateBack({
                     delta: 1
                   });
-                  wx.showToast({
-                    title: '更新成功',
-                    icon: 'success',
-                    duration: 2000
-                  });
+                  setTimeout(() => {
+                    wx.showToast({
+                      title: '更新成功',
+                      icon: 'success',
+                      duration: 2000
+                    });
+                  }, 500);
                 }
               } else {
                 wx.showToast({

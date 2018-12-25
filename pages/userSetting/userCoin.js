@@ -7,7 +7,8 @@ const app = getApp();
 const typeMap = new Map([
   ["FINISH_ORDER", "完成任务"],
   ["CHARGE", "充值"],
-  ["PAY_ORDER", "发布任务"]
+  ["PAY_ORDER", "发布任务"],
+  ["CANCEL_ORDER", "取消任务"]
 ]);
 
 Page({
