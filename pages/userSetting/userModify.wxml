@@ -1,6 +1,6 @@
 <!--pages/userSetting/userModify.wxml-->
 <view class="section">
-  <input wx:if="{{type=='phone'}}" value="{{value}}" maxlength="11" bindconfirm="confirmModify" type="number" auto-focus />
+  <input wx:if="{{type=='phone'}}" value="{{value}}" maxlength="11" bindconfirm="confirmModify" auto-focus />
   <input wx:elif="{{type=='gender'}}" value="{{value}}" maxlength="1" bindconfirm="confirmModify" auto-focus />
   <input wx:else value="{{value}}" maxlength="10" bindconfirm="confirmModify" auto-focus />
 </view>

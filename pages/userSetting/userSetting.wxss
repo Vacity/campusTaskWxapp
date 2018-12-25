@@ -122,7 +122,7 @@
 }
 
 .icon-iconstar::before {
-  color: rgb(255, 238, 0);
+  color: rgb(255, 146, 0);
   content: "\e61b";
 }
 
@@ -132,7 +132,7 @@
 }
 
 .icon-iconstar-half::before {
-  color: rgb(255, 238, 0);
+  color: rgb(255, 146, 0);
   content: "\e6f0";
 }
 
